@@ -5,49 +5,51 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PARKBOOK — разработчик на приложението „Моят автомобил“</title>
 <meta name="description" content="„Паркбоок“ ЕООД (Parkbook Ltd.) — софтуерна фирма от Бургас. Разработчик на мобилното приложение „Моят автомобил“ (My Car).">
-<meta name="theme-color" content="#14171c">
+<meta name="theme-color" content="#111316">
 <meta property="og:title" content="PARKBOOK — разработчик на „Моят автомобил“">
 <meta property="og:description" content="Софтуерна фирма от Бургас. Правим мобилни приложения, които спестяват грижи на шофьорите.">
-<meta property="og:image" content="https://parkbook.bg/img/icon-512.png">
+<meta property="og:image" content="https://parkbook.bg/img/share.png">
 <meta property="og:url" content="https://parkbook.bg/">
 <link rel="canonical" href="https://parkbook.bg/">
-<link rel="icon" type="image/png" sizes="192x192" href="img/icon-192.png">
+<link rel="icon" type="image/svg+xml" href="img/mark.svg">
+<link rel="icon" type="image/png" sizes="512x512" href="img/mark-512.png">
+<link rel="apple-touch-icon" href="img/mark-512.png">
 <style>
-/* Същите цветове като в приложението „Моят автомобил“. Без външни шрифтове, бисквитки и следене. */
-:root{ --bg:#14171c; --panel:#1c2028; --panel2:#232833; --line:#2b303a; --ink:#edeef0; --muted:#8b93a1; --amber:#e8a33d; --green:#5cc27f; }
+/* Цветовете са от логото на PARKBOOK (черно + неоново зелено). Без външни шрифтове, бисквитки и следене. */
+:root{ --bg:#111316; --panel:#191c21; --panel2:#20242a; --line:#2a2e35; --ink:#edeef0; --muted:#8b93a1; --accent:#C6F432; --green:#5cc27f; }
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{margin:0; background:var(--bg); color:var(--ink); font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;}
 html[data-l="bg"] [lang="en"], html[data-l="en"] [lang="bg"]{display:none;}
-a{color:var(--amber);}
+a{color:var(--accent);}
 img{max-width:100%; height:auto; display:block;}
 .wrap{max-width:1040px; margin:0 auto; padding:0 20px;}
 
-header{position:sticky; top:0; z-index:5; background:rgba(20,23,28,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+header{position:sticky; top:0; z-index:5; background:rgba(17,19,22,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
 .bar{display:flex; align-items:center; gap:16px; height:60px;}
-.brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.08em; color:var(--ink); text-decoration:none;}
-.brand i{width:10px; height:10px; border-radius:50%; background:var(--amber); box-shadow:0 0 12px var(--amber);}
+.brand{display:flex; align-items:center;}
+.brand img{height:40px; width:auto; margin-left:-8px;}
 nav{margin-left:auto; display:flex; gap:20px;}
 nav a{color:var(--muted); text-decoration:none; font-size:.92rem;}
 nav a:hover{color:var(--ink);}
 .lang{display:flex; gap:4px;}
 .lang button{background:none; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:4px 11px; font:inherit; font-size:.8rem; font-weight:600; cursor:pointer;}
-.lang button[aria-pressed="true"]{border-color:var(--amber); color:var(--amber);}
+.lang button[aria-pressed="true"]{border-color:var(--accent); color:var(--accent);}
 
-.hero{padding:72px 0 56px; background:radial-gradient(900px 420px at 80% -10%, rgba(232,163,61,.16), transparent 70%);}
+.hero{padding:72px 0 56px; background:radial-gradient(900px 420px at 80% -10%, rgba(198,244,50,.10), transparent 70%);}
 .hero .wrap{display:grid; grid-template-columns:1.25fr .75fr; gap:40px; align-items:center;}
-.eyebrow{color:var(--amber); font-weight:700; font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; margin:0 0 12px;}
+.eyebrow{color:var(--accent); font-weight:700; font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; margin:0 0 12px;}
 h1{font-size:clamp(2rem,5vw,3.2rem); line-height:1.1; margin:0 0 16px; letter-spacing:-.02em;}
-h1 em{font-style:normal; color:var(--amber);}
+h1 em{font-style:normal; color:var(--accent);}
 .lead{font-size:1.12rem; color:#c5c9d1; max-width:34em; margin:0 0 26px;}
 .cta{display:flex; flex-wrap:wrap; gap:12px;}
 .btn{display:inline-block; padding:12px 20px; border-radius:999px; font-weight:700; text-decoration:none; font-size:.95rem;}
-.btn.primary{background:var(--amber); color:#14171c;}
+.btn.primary{background:var(--accent); color:#111316;}
 .btn.ghost{border:1px solid var(--line); color:var(--ink);}
 .appicon{width:min(260px,70%); margin:0 auto; border-radius:22%; box-shadow:0 30px 60px rgba(0,0,0,.5);}
 
 section{padding:56px 0;}
-section.alt{background:#171a20; border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+section.alt{background:#15181c; border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
 h2{font-size:clamp(1.5rem,3.2vw,2rem); line-height:1.2; margin:0 0 10px; letter-spacing:-.01em;}
 .sub{color:var(--muted); max-width:42em; margin:0 0 30px;}
 .badge{display:inline-block; background:rgba(92,194,127,.14); color:var(--green); border-radius:999px; padding:4px 12px; font-size:.8rem; font-weight:700; margin-bottom:14px;}
@@ -62,7 +64,7 @@ h2{font-size:clamp(1.5rem,3.2vw,2rem); line-height:1.2; margin:0 0 10px; letter-
 .shots img{border-radius:18px; border:1px solid var(--line);}
 
 .price{display:flex; flex-wrap:wrap; gap:10px 28px; margin-top:28px; padding:16px 18px; background:var(--panel); border:1px solid var(--line); border-radius:16px; font-size:.95rem;}
-.price b{color:var(--amber);}
+.price b{color:var(--accent);}
 
 .two{display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start;}
 dl{margin:0; background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:6px 18px;}
@@ -73,7 +75,7 @@ dd{margin:0; font-size:.95rem;}
 ul.plain{list-style:none; padding:0; margin:0;}
 ul.plain li{padding:10px 0 10px 26px; position:relative; border-bottom:1px solid var(--line);}
 ul.plain li:last-child{border-bottom:0;}
-ul.plain li::before{content:""; position:absolute; left:4px; top:19px; width:8px; height:8px; border-radius:50%; background:var(--amber);}
+ul.plain li::before{content:""; position:absolute; left:4px; top:19px; width:8px; height:8px; border-radius:50%; background:var(--accent);}
 
 .contact{background:var(--panel); border:1px solid var(--line); border-radius:20px; padding:30px 24px; text-align:center;}
 .contact a.mail{font-size:clamp(1.2rem,3.4vw,1.7rem); font-weight:800; text-decoration:none;}
@@ -101,7 +103,7 @@ footer a{color:var(--muted);}
 
 <header>
   <div class="wrap bar">
-    <a class="brand" href="#top"><i></i>PARKBOOK</a>
+    <a class="brand" href="#top"><img src="img/logo.png" width="1120" height="260" alt="parkbook"></a>
     <nav>
       <a href="#app"><span lang="bg">Приложението</span><span lang="en">The app</span></a>
       <a href="#company"><span lang="bg">Фирмата</span><span lang="en">Company</span></a>
