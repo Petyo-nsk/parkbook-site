@@ -50,9 +50,13 @@ h1 em{font-style:normal; color:var(--accent);}
 
 section{padding:56px 0;}
 section.alt{background:#15181c; border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
-h2{font-size:clamp(1.5rem,3.2vw,2rem); line-height:1.2; margin:0 0 10px; letter-spacing:-.01em;}
+h2{font-size:clamp(1.5rem,3.2vw,2rem); line-height:1.2; margin:0 0 10px; letter-spacing:-.02em; font-weight:800;}
+/* Заглавията в стила на логото: бял плътен текст + неоново зелена точка накрая („parkbook.“) */
+h1{font-weight:800; letter-spacing:-.03em;}
+h2.dot::after{content:"."; color:var(--accent);}
+.card h3{letter-spacing:-.01em;}
 .sub{color:var(--muted); max-width:42em; margin:0 0 30px;}
-.badge{display:inline-block; background:rgba(92,194,127,.14); color:var(--green); border-radius:999px; padding:4px 12px; font-size:.8rem; font-weight:700; margin-bottom:14px;}
+.badge{display:inline-block; background:rgba(198,244,50,.12); color:var(--accent); border-radius:999px; padding:4px 12px; font-size:.8rem; font-weight:700; margin-bottom:14px;}
 
 .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
 .card{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:18px;}
@@ -80,6 +84,8 @@ ul.plain li::before{content:""; position:absolute; left:4px; top:19px; width:8px
 .contact{background:var(--panel); border:1px solid var(--line); border-radius:20px; padding:30px 24px; text-align:center;}
 .contact a.mail{font-size:clamp(1.2rem,3.4vw,1.7rem); font-weight:800; text-decoration:none;}
 .contact p{color:var(--muted); margin:8px 0 0;}
+.contact p.partner{margin-top:18px; padding-top:16px; border-top:1px solid var(--line); color:var(--ink);}
+.contact p.partner a{font-weight:700; text-decoration:none;}
 
 footer{padding:28px 0 44px; color:var(--muted); font-size:.86rem;}
 footer .wrap{display:flex; flex-wrap:wrap; gap:8px 22px; justify-content:space-between;}
@@ -195,15 +201,14 @@ footer a{color:var(--muted);}
 
 <section id="action">
   <div class="wrap">
-    <h2 lang="bg">Виж го в действие</h2>
-    <h2 lang="en">See it in action</h2>
+    <h2 class="dot" lang="bg">Виж го в действие</h2>
+    <h2 class="dot" lang="en">See it in action</h2>
     <p class="sub" lang="bg">Кратки клипове от „Моят автомобил“ — колата-талисман, сроковете и партньорите.</p>
     <p class="sub" lang="en">Short clips of “My Car” — the mascot car, the deadlines and the partners. <span class="note">(The videos are in Bulgarian.)</span></p>
     <div class="reel">
       <button class="reelBtn prev" type="button" aria-label="Назад / Previous">‹</button>
       <div class="track" id="track">
         <figure class="clip"><div class="phoneFrame"><video muted loop playsinline preload="none" poster="video/reklama.jpg" src="video/reklama.mp4"></video></div><figcaption><span lang="bg">Гражданската</span><span lang="en">Liability insurance</span></figcaption></figure>
-        <figure class="clip"><div class="phoneFrame"><video muted loop playsinline preload="none" poster="video/vinetka.jpg" src="video/vinetka.mp4"></video></div><figcaption><span lang="bg">Винетката</span><span lang="en">The vignette</span></figcaption></figure>
         <figure class="clip"><div class="phoneFrame"><video muted loop playsinline preload="none" poster="video/nastroenie.jpg" src="video/nastroenie.mp4"></video></div><figcaption><span lang="bg">Колата има настроение</span><span lang="en">The car has moods</span></figcaption></figure>
         <figure class="clip"><div class="phoneFrame"><video muted loop playsinline preload="none" poster="video/pregled.jpg" src="video/pregled.mp4"></video></div><figcaption><span lang="bg">Преглед с вземане от адрес</span><span lang="en">Inspection with pick-up</span></figcaption></figure>
         <figure class="clip"><div class="phoneFrame"><video muted loop playsinline preload="none" poster="video/bezplatno.jpg" src="video/bezplatno.mp4"></video></div><figcaption><span lang="bg">Безплатно</span><span lang="en">Free</span></figcaption></figure>
@@ -217,8 +222,8 @@ footer a{color:var(--muted);}
   <div class="wrap">
     <span class="badge"><span lang="bg">Скоро в Google Play</span><span lang="en">Coming soon to Google Play</span></span>
 
-    <h2 lang="bg">Моят автомобил</h2>
-    <h2 lang="en">My Car (Моят автомобил)</h2>
+    <h2 class="dot" lang="bg">Моят автомобил</h2>
+    <h2 class="dot" lang="en">My Car (Моят автомобил)</h2>
     <p class="sub" lang="bg">Никога вече изтекла гражданска или винетка. Приложението пази всички срокове на колата ти на едно място и ти напомня навреме — за гражданската и прегледа 21, 14, 7 и 1 ден преди изтичане. Без регистрация, без имейл, без ЕГН.</p>
     <p class="sub" lang="en">Never drive with expired insurance or vignette again. The app keeps all your car’s deadlines in one place and reminds you in time — 21, 14, 7 and 1 day before your insurance or inspection expires. No sign-up, no email, no personal ID number.</p>
 
@@ -269,8 +274,8 @@ footer a{color:var(--muted);}
 <section id="company">
   <div class="wrap two">
     <div>
-      <h2 lang="bg">За фирмата</h2>
-      <h2 lang="en">About the company</h2>
+      <h2 class="dot" lang="bg">За фирмата</h2>
+      <h2 class="dot" lang="en">About the company</h2>
       <p class="sub" lang="bg">„Паркбоок“ ЕООД е регистрирана в Бургас през 2025 г. Занимаваме се с:</p>
       <p class="sub" lang="en">Parkbook Ltd. was registered in Burgas, Bulgaria, in 2025. What we do:</p>
       <ul class="plain" lang="bg">
@@ -313,6 +318,8 @@ footer a{color:var(--muted);}
       <a class="mail" href="mailto:support@parkbook.bg">support@parkbook.bg</a>
       <p lang="bg">Отговаряме на български и английски.</p>
       <p lang="en">We reply in Bulgarian and English.</p>
+      <p class="partner" lang="bg">За партньорство (сервизи, детайлинг, застрахователи, автоключари): <a href="mailto:contact@parkbook.bg">contact@parkbook.bg</a></p>
+      <p class="partner" lang="en">For partnerships (garages, detailing, insurers, locksmiths): <a href="mailto:contact@parkbook.bg">contact@parkbook.bg</a></p>
     </div>
   </div>
 </section>
