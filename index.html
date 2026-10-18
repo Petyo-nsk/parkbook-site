@@ -93,6 +93,14 @@ ul.plain li::before{content:""; position:absolute; left:4px; top:19px; width:8px
 footer{padding:28px 0 44px; color:var(--muted); font-size:.86rem;}
 footer .wrap{display:flex; flex-wrap:wrap; gap:8px 22px; justify-content:space-between;}
 footer a{color:var(--muted);}
+/* Данните на фирмата в прозорец */
+.coLink{background:none; border:0; padding:0; font:inherit; color:var(--ink); cursor:pointer; text-decoration:underline dotted; text-underline-offset:3px;}
+.coLink:hover{color:var(--accent);}
+.companyDlg{width:min(860px, calc(100vw - 32px)); max-height:calc(100vh - 40px); overflow:auto; background:var(--panel); color:var(--ink); border:1px solid var(--line); border-radius:20px; padding:30px 26px 24px; box-shadow:0 30px 80px rgba(0,0,0,.6);}
+.companyDlg::backdrop{background:rgba(8,9,11,.72); backdrop-filter:blur(3px);}
+.companyDlg .two{margin:0;}
+.dlgClose{position:absolute; top:12px; right:12px; width:36px; height:36px; border-radius:50%; border:1px solid var(--line); background:var(--panel2); color:var(--ink); font-size:1rem; cursor:pointer;}
+.dlgClose:hover{border-color:var(--accent); color:var(--accent);}
 
 /* Живият талисман — същата кола като в приложението „Моят автомобил“ */
 .mascotBox{position:relative; justify-self:center; width:min(300px,80%);}
@@ -274,9 +282,12 @@ footer a{color:var(--muted);}
   </div>
 </section>
 
-<section id="company">
-  <div class="wrap two">
-    <div>
+<!-- Данните на фирмата — в прозорец, който се отваря от името на фирмата долу вляво или от „Фирмата“ в менюто.
+     Остават в страницата (законът изисква да са лесно достъпни), само не заемат място. -->
+<dialog id="company" class="companyDlg" aria-labelledby="companyTitle">
+  <button class="dlgClose" type="button" aria-label="Затвори / Close">✕</button>
+  <div class="two">
+    <div id="companyTitle">
       <h2 class="dot" lang="bg">За фирмата</h2>
       <h2 class="dot" lang="en">About the company</h2>
       <p class="sub" lang="bg">„Паркбоок“ ЕООД е регистрирана в Бургас през 2025 г. Занимаваме се с:</p>
@@ -313,7 +324,7 @@ footer a{color:var(--muted);}
       </dl>
     </div>
   </div>
-</section>
+</dialog>
 
 <section id="contact" style="padding-top:0">
   <div class="wrap">
@@ -333,8 +344,8 @@ footer a{color:var(--muted);}
 
 <footer>
   <div class="wrap">
-    <span lang="bg">© 2026 „Паркбоок“ ЕООД · ЕИК 208335426 · гр. Бургас</span>
-    <span lang="en">© 2026 Parkbook Ltd. · UIC 208335426 · Burgas, Bulgaria</span>
+    <span lang="bg">© 2026 <button class="coLink" type="button" data-company>„Паркбоок“ ЕООД</button> · ЕИК 208335426 · гр. Бургас</span>
+    <span lang="en">© 2026 <button class="coLink" type="button" data-company>Parkbook Ltd.</button> · UIC 208335426 · Burgas, Bulgaria</span>
     <span lang="bg">Сайтът не ползва бисквитки и не следи посетителите.</span>
     <span lang="en">This site uses no cookies and does not track visitors.</span>
   </div>
@@ -355,6 +366,20 @@ document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',
   show(b.dataset.l);
   try{ localStorage.setItem('car-tracker-lang-v1', b.dataset.l); }catch(e){}
 }));
+
+// ==== Данните на фирмата: прозорец от името долу вляво, от „Фирмата“ в менюто и от адрес …#company ====
+(function(){
+  const dlg = document.getElementById('company');
+  if(!dlg || !dlg.showModal) return;
+  const open = e=>{ if(e) e.preventDefault(); if(!dlg.open) dlg.showModal(); };
+  document.querySelectorAll('[data-company], a[href="#company"]').forEach(el=>el.addEventListener('click', open));
+  dlg.querySelector('.dlgClose').addEventListener('click', ()=>dlg.close());
+  dlg.addEventListener('click', e=>{   // клик извън прозореца (по затъмнения фон) го затваря
+    const r = dlg.getBoundingClientRect();
+    if(e.target === dlg && (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)) dlg.close();
+  });
+  if(location.hash === '#company') open();
+})();
 
 // ==== Живият талисман ====
 // Очите следят мишката (на телефон — бавно се оглеждат сами), мига, при посочване/натискане се усмихва и подскача,
