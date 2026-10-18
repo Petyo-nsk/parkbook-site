@@ -6,6 +6,7 @@
 <title>PARKBOOK — разработчик на приложението „Моят автомобил“</title>
 <meta name="description" content="„Паркбоок“ ЕООД (Parkbook Ltd.) — софтуерна фирма от Бургас. Разработчик на мобилното приложение „Моят автомобил“ (My Car).">
 <meta name="theme-color" content="#111316">
+<meta name="format-detection" content="telephone=no, address=no, email=no, date=no">
 <meta property="og:title" content="PARKBOOK — разработчик на „Моят автомобил“">
 <meta property="og:description" content="Софтуерна фирма от Бургас. Правим мобилни приложения, които спестяват грижи на шофьорите.">
 <meta property="og:image" content="https://parkbook.bg/img/share.png">
@@ -22,6 +23,8 @@ html{scroll-behavior:smooth;}
 body{margin:0; background:var(--bg); color:var(--ink); font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;}
 html[data-l="bg"] [lang="en"], html[data-l="en"] [lang="bg"]{display:none;}
 a{color:var(--accent);}
+/* Телефонът сам прави сини линкове от числа (ЕИК), адреси и дати — изключено с format-detection, а ако все пак ги направи, взимат цвета на текста */
+a[x-apple-data-detectors], a[href^="tel:"], a[href^="sms:"]{color:inherit !important; text-decoration:none !important; font:inherit !important;}
 img{max-width:100%; height:auto; display:block;}
 .wrap{max-width:1040px; margin:0 auto; padding:0 20px;}
 
