@@ -26,6 +26,7 @@ body{background:var(--bg); color:var(--ink); font-family:system-ui,-apple-system
 .k div{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:10px 6px; text-align:center;}
 .k b{display:block; font-size:20px;} .k span{font-size:11px; color:var(--muted);}
 .tabs{display:flex; gap:6px; padding:6px 16px 10px;}
+.promo{margin:10px 16px 0; padding:12px 14px; background:var(--panel); border:1px dashed var(--amber); border-radius:12px;} .promo .pc{display:flex; align-items:center; gap:10px; margin:6px 0;} .promo .pc b{font-size:20px; letter-spacing:1px; color:var(--amber); font-family:ui-monospace,Consolas,monospace;} .promo button{padding:6px 12px; border-radius:8px; border:1px solid var(--line); background:var(--panel2); color:var(--ink); cursor:pointer;}
 .tabs a{padding:7px 13px; border-radius:99px; border:1px solid var(--line); font-size:12.5px; color:var(--muted); cursor:pointer;}
 .tabs a.act{background:rgba(232,163,61,.15); border-color:var(--amber); color:var(--amber); font-weight:700;}
 .it{margin:0 16px 10px; background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:12px;}
@@ -116,12 +117,14 @@ function render(){
   html += codeMode
     ? `<div class="k"><div><b>${m.views}</b><span>видели офертата</span></div><div><b>${m.codes}</b><span>взели код</span></div><div><b style="color:var(--green)">${m.done}</b><span>изпълнени</span></div></div>`
     : `<div class="k"><div><b>${m.clicks}</b><span>пратени клиенти</span></div><div><b>${m.leads}</b><span>заявки</span></div><div><b style="color:var(--green)">${m.sales}</b><span>продажби</span></div></div>`;
+  if(D.promo) html += `<div class="promo"><div class="muted">Вашият промо код за клиентите — 1 година Премиум безплатно</div><div class="pc"><b>${esc(D.promo.code)}</b><button id="cpPromo">Копирай</button></div><div class="muted">Въвели го: <b>${D.promo.clients}</b> ${D.promo.clients === 1 ? 'клиент' : 'клиенти'}</div></div>`;
   html += `<div class="tabs">${codeMode ? `<a data-tab="codes" class="${tab==='codes'?'act':''}">Кодове</a>` : ''}<a data-tab="report" class="${tab==='report'?'act':''}">Отчет</a><a data-tab="help" class="${tab==='help'?'act':''}">Помощ</a></div>`;
   if(tab === 'codes') html += codesHtml();
   else if(tab === 'report') html += reportHtml(codeMode);
   else html += helpHtml(codeMode);
   document.getElementById('root').innerHTML = html;
   document.querySelectorAll('[data-tab]').forEach(a=>a.onclick = ()=>{ tab = a.dataset.tab; render(); });
+  const cp = document.getElementById('cpPromo'); if(cp) cp.onclick = ()=>{ navigator.clipboard.writeText(D.promo.code).then(()=>{ cp.textContent = 'Копирано ✓'; }, ()=>{}); };
   document.querySelectorAll('[data-f]').forEach(a=>a.onclick = ()=>{ filter = a.dataset.f; render(); });
   document.querySelectorAll('[data-done]').forEach(b=>b.onclick = ()=>openSheet(b.dataset.done, 'done'));
   document.querySelectorAll('[data-no]').forEach(b=>b.onclick = ()=>openSheet(b.dataset.no, 'no'));
