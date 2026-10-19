@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PARKBOOK — разработчик на приложението „Моят автомобил – ГО и винетка“</title>
-<meta name="description" content="„Паркбоок“ ЕООД (Parkbook Ltd.) — софтуерна фирма от Бургас. Разработчик на мобилното приложение „Моят автомобил – ГО и винетка“ (My Car – Insurance &amp; Vignette).">
+<meta name="description" content="„Паркбоок“ ЕООД (Parkbook Ltd.) — софтуерна фирма от Бургас. Разработчик на мобилното приложение „Моят автомобил – ГО и винетка“ (My Car – Insurance Deadlines).">
 <meta name="theme-color" content="#111316">
 <meta name="format-detection" content="telephone=no, address=no, email=no, date=no">
 <meta property="og:title" content="PARKBOOK — разработчик на „Моят автомобил – ГО и винетка“">
@@ -180,7 +180,7 @@ footer a{color:var(--muted);}
     <div>
       <p class="eyebrow"><span lang="bg">Софтуер и мобилни приложения · Бургас</span><span lang="en">Software and mobile apps · Burgas, Bulgaria</span></p>
       <h1 lang="bg">Разработчик на приложението <em>„Моят автомобил – ГО и винетка“</em></h1>
-      <h1 lang="en">The developer of the <em>“My Car – Insurance &amp; Vignette”</em> app</h1>
+      <h1 lang="en">The developer of the <em>“My Car – Insurance Deadlines”</em> app</h1>
       <p class="lead" lang="bg">PARKBOOK („Паркбоок“ ЕООД) е българска софтуерна фирма. Правим мобилни приложения и онлайн услуги, които спестяват грижи на шофьорите.</p>
       <p class="lead" lang="en">PARKBOOK (Parkbook Ltd.) is a Bulgarian software company. We build mobile apps and online services that take the hassle out of owning a car.</p>
       <div class="cta">
@@ -237,7 +237,7 @@ footer a{color:var(--muted);}
     <a class="playBtn" id="playBtn" href="https://play.google.com/store/apps/details?id=com.parkbook.moyatavtomobil" target="_blank" rel="noopener" hidden><span lang="bg">▶ Изтегли от Google Play</span><span lang="en">▶ Get it on Google Play</span></a>
 
     <h2 class="dot" lang="bg">Моят автомобил – ГО и винетка</h2>
-    <h2 class="dot" lang="en">My Car – Insurance &amp; Vignette</h2>
+    <h2 class="dot" lang="en">My Car – Insurance Deadlines</h2>
     <p class="sub" lang="bg">Никога вече изтекла гражданска или винетка. Приложението пази всички срокове на колата ти на едно място и ти напомня навреме — 30, 15, 7 и 1 ден преди да изтече нещо. Без регистрация, без имейл, без ЕГН.</p>
     <p class="sub" lang="en">Never drive with expired insurance or vignette again. The app keeps all your car’s deadlines in one place and reminds you in time — 30, 15, 7 and 1 day before anything expires. No sign-up, no email, no personal ID number.</p>
 
@@ -363,7 +363,7 @@ function show(l){
   document.documentElement.dataset.l = l;
   document.documentElement.lang = l;
   document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.l === l));
-  document.title = l === 'en' ? 'PARKBOOK — developer of the “My Car – Insurance & Vignette” app' : 'PARKBOOK — разработчик на приложението „Моят автомобил – ГО и винетка“';
+  document.title = l === 'en' ? 'PARKBOOK — developer of the “My Car – Insurance Deadlines” app' : 'PARKBOOK — разработчик на приложението „Моят автомобил – ГО и винетка“';
 }
 let l = 'bg';
 try{ l = new URLSearchParams(location.search).get('lang') || localStorage.getItem('car-tracker-lang-v1') || 'bg'; }catch(e){}
