@@ -156,7 +156,7 @@ function reportHtml(codeMode){
     const n = codeMode ? m.done : m.sales;
     h += `<div class="it" style="border-color:var(--amber)"><div class="muted" style="font-size:12px">${monthName(cur)} (до момента)</div>
       <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:6px;"><div><b style="font-size:24px">${n}</b> <span class="muted">${codeMode ? 'изпълнени' : 'продажби'}${codeMode && per ? ' × ' + eur(per) : ''}</span></div><b style="font-size:24px; color:var(--amber)">${eur(m.due)}</b></div>
-      <div class="sub" style="margin-top:6px;">${codeMode ? 'Отбелязвайте кодовете до 5-о число на следващия месец — тогава отчетът се затваря и не може да се променя.' : 'Продажбите идват автоматично от Вашия сайт.'} На 1-во число ще получите имейл с окончателната сума.</div></div>`;
+      <div class="sub" style="margin-top:6px;">${codeMode ? 'Отбелязвайте кодовете до 5-о число на следващия месец — тогава отчетът се затваря и не може да се променя.' : 'Продажбите идват автоматично от Вашия сайт.'} На 6-о число ще получите имейл с окончателната сума.</div></div>`;
   }
   const past = D.months.filter(x=>x.month !== cur);
   if(past.length){
@@ -165,7 +165,7 @@ function reportHtml(codeMode){
       + `</table></div>`;
   }
   if(!h) h = `<div class="it muted">Още няма данни. Щом клиент от приложението вземе код или мине през линка Ви, ще се появи тук.</div>`;
-  h += `<div class="it"><b>Как плащате</b><div class="sub" style="line-height:1.5;">По банков път до 15-о число на следващия месец. Банковата сметка и номерът на фактурата идват в имейла на 1-во число. Без лични данни на клиенти — само кодове.</div></div>`;
+  h += `<div class="it"><b>Как плащате</b><div class="sub" style="line-height:1.5;">По банков път до 15-о число на следващия месец. Банковата сметка и основанието идват в имейла на 6-о число. Без лични данни на клиенти — само кодове.</div></div>`;
   return h;
 }
 
