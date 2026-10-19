@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#0e1116">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="PARKBOOK партньор">
+<title>PARKBOOK · партньорски портал</title>
+<style>
+/* Портал за партньорите на „Моят автомобил“ (19.10.2026). Без външни шрифтове и бисквитки.
+   Ключът е след # в адреса — не стига до никой сървър освен нашата функция partner-portal. */
+:root{--bg:#0e1116; --panel:#161b22; --panel2:#1a1f27; --line:#262d36; --ink:#e8eaed; --muted:#8b949e; --amber:#E8A33D; --green:#3ecf8e; --red:#ef6b5b; --neon:#c6f432;}
+*{box-sizing:border-box;}
+html,body{margin:0;}
+body{background:var(--bg); color:var(--ink); font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; font-size:14px; min-height:100vh;}
+.wrap{max-width:560px; margin:0 auto; padding-bottom:40px;}
+.bar{display:flex; justify-content:space-between; align-items:center; padding:12px 16px; border-bottom:1px solid var(--line);}
+.bar b i{color:var(--neon); font-style:normal;}
+.muted{color:var(--muted);}
+.hd{padding:14px 16px 4px;} .hd h1{font-size:19px; margin:0 0 2px;}
+.k{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; padding:10px 16px;}
+.k div{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:10px 6px; text-align:center;}
+.k b{display:block; font-size:20px;} .k span{font-size:11px; color:var(--muted);}
+.tabs{display:flex; gap:6px; padding:6px 16px 10px;}
+.tabs a{padding:7px 13px; border-radius:99px; border:1px solid var(--line); font-size:12.5px; color:var(--muted); cursor:pointer;}
+.tabs a.act{background:rgba(232,163,61,.15); border-color:var(--amber); color:var(--amber); font-weight:700;}
+.it{margin:0 16px 10px; background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:12px;}
+.t{display:flex; justify-content:space-between; align-items:center; gap:8px;}
+.code{font-weight:800; letter-spacing:.5px;}
+.sub{font-size:12.5px; color:var(--muted); margin-top:3px; line-height:1.45;}
+.bt{display:flex; gap:8px; margin-top:10px;}
+.bt button{flex:1; padding:11px; border-radius:10px; font-weight:700; font-size:13.5px; cursor:pointer; font-family:inherit;}
+.ok{background:rgba(62,207,142,.15); color:var(--green); border:1px solid rgba(62,207,142,.4);}
+.no{background:rgba(239,107,91,.1); color:var(--red); border:1px solid rgba(239,107,91,.35);}
+.badge{font-size:11px; font-weight:700; padding:3px 8px; border-radius:99px; white-space:nowrap;}
+.bOk{background:rgba(62,207,142,.15); color:var(--green);} .bNo{background:rgba(239,107,91,.12); color:var(--red);} .bNew{background:rgba(232,163,61,.15); color:var(--amber);} .bLock{background:rgba(139,148,158,.15); color:var(--muted);}
+.edit{background:none; border:none; color:var(--muted); text-decoration:underline; font-size:12px; cursor:pointer; padding:0; margin-top:6px; font-family:inherit;}
+label{display:block; color:var(--muted); font-size:12px; margin-top:12px;}
+input,select{width:100%; background:var(--bg); border:1px solid var(--line); color:var(--ink); border-radius:9px; padding:11px; font-size:15px; margin-top:6px; font-family:inherit;}
+.shade{position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; z-index:10;}
+.sheet{position:fixed; left:0; right:0; bottom:0; max-width:560px; margin:0 auto; background:var(--panel2); border-top:1px solid var(--line); border-radius:18px 18px 0 0; padding:18px 16px calc(22px + env(safe-area-inset-bottom,0px)); z-index:11; transform:translateY(105%); transition:transform .2s;}
+.sheet.open{transform:none;} .shade.on{display:block;}
+.btn{width:100%; background:var(--amber); color:#1a1305; border:none; padding:13px; border-radius:10px; font-weight:800; font-size:15px; margin-top:14px; cursor:pointer; font-family:inherit;}
+.link{display:block; text-align:center; margin-top:12px; color:var(--muted); cursor:pointer;}
+.err{color:var(--red); font-size:13px; margin-top:8px; min-height:16px;}
+table{width:100%; border-collapse:collapse;} td,th{padding:9px 5px; border-bottom:1px solid var(--line); font-size:13px; text-align:right;} td:first-child,th:first-child{text-align:left;} th{color:var(--muted); font-weight:600; font-size:12px;}
+.center{text-align:center; padding:60px 20px;}
+.filter{display:flex; gap:6px; padding:0 16px 10px; flex-wrap:wrap;}
+.filter a{font-size:12px; padding:5px 10px; border-radius:99px; border:1px solid var(--line); color:var(--muted); cursor:pointer;}
+.filter a.act{border-color:var(--ink); color:var(--ink);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="bar"><b>parkbook<i>.</i> партньор</b><span class="muted" style="font-size:12px;">„Моят автомобил“</span></div>
+  <div id="root"><div class="center muted">Зареждане…</div></div>
+</div>
+
+<div class="shade" id="shade"></div>
+<div class="sheet" id="sheet"></div>
+
+<script>
+const API = 'https://zqpomakbhmqhdeuefdfj.supabase.co/functions/v1/partner-portal';
+const KEY_STORE = 'parkbook-partner-key';
+const PRODUCTS = {inspection:'Преглед с вземане от адрес', detailing:'Детайлинг', ppf:'Защитно фолио (PPF)', tint:'Затъмняване на стъкла', keys:'Автоключар',
+  service:'Сервиз', winter:'Зимни аксесоари', glass:'Автостъкла', tires:'Гуми', oil:'Масло и филтри', chain:'Верига за мотор', charger:'Зарядно',
+  civil:'Гражданска отговорност', casco:'Каско', vignette:'Винетка'};
+const CITY = {sofia:'София', plovdiv:'Пловдив', varna:'Варна', burgas:'Бургас', asenovgrad:'Асеновград', blagoevgrad:'Благоевград',
+  botevgrad:'Ботевград', 'veliko-tarnovo':'Велико Търново', velingrad:'Велинград', vidin:'Видин', vratsa:'Враца', gabrovo:'Габрово',
+  'gorna-oryahovitsa':'Горна Оряховица', dimitrovgrad:'Димитровград', dobrich:'Добрич', dupnitsa:'Дупница', kazanlak:'Казанлък',
+  karlovo:'Карлово', kardzhali:'Кърджали', kyustendil:'Кюстендил', lovech:'Ловеч', montana:'Монтана', nesebar:'Несебър',
+  'nova-zagora':'Нова Загора', pazardzhik:'Пазарджик', pernik:'Перник', petrich:'Петрич', pleven:'Плевен', razgrad:'Разград',
+  ruse:'Русе', samokov:'Самоков', sandanski:'Сандански', svishtov:'Свищов', sevlievo:'Севлиево', silistra:'Силистра',
+  sliven:'Сливен', smolyan:'Смолян', 'stara-zagora':'Стара Загора', targovishte:'Търговище', haskovo:'Хасково', shumen:'Шумен', yambol:'Ямбол'};
+const REASONS = {client_cancelled:'клиентът се отказа', no_answer:'не вдигна / не отговори', other_day:'ще дойде друг ден', no_show:'не се появи', other:'друго'};
+const MON = ['януари','февруари','март','април','май','юни','юли','август','септември','октомври','ноември','декември'];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const d2 = iso => { if(!iso) return ''; const [y,m,d] = String(iso).slice(0,10).split('-'); return `${d}.${m}`; };
+const d3 = iso => { if(!iso) return ''; const [y,m,d] = String(iso).slice(0,10).split('-'); return `${d}.${m}.${y}`; };
+const eur = n => (Number(n) || 0).toLocaleString('bg-BG', {maximumFractionDigits: 2}) + ' €';
+const monthName = m => { const [y, mm] = m.split('-'); return `${MON[Number(mm) - 1]} ${y}`; };
+
+// Ключът: от адреса (#k=…) или запомнен на това устройство
+let key = '';
+const fromHash = (location.hash.match(/k=(pp_[a-f0-9]{40})/) || [])[1];
+try{ if(fromHash){ localStorage.setItem(KEY_STORE, fromHash); } key = fromHash || localStorage.getItem(KEY_STORE) || ''; }catch(e){ key = fromHash || ''; }
+
+let D = null, tab = 'codes', filter = 'open';
+async function api(body){
+  const r = await fetch(API, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({k: key, ...body})});
+  return r.json().catch(()=>({error:'network'}));
+}
+async function load(){
+  if(!key){ document.getElementById('root').innerHTML = `<div class="center"><b>Няма ключ за достъп.</b><div class="muted" style="margin-top:8px;">Отворете личния линк, който получихте от PARKBOOK.</div></div>`; return; }
+  const data = await api({action:'me'});
+  if(data.error === 'invalid_key'){
+    try{ localStorage.removeItem(KEY_STORE); }catch(e){}
+    document.getElementById('root').innerHTML = `<div class="center"><b>Линкът не е валиден или е спрян.</b><div class="muted" style="margin-top:8px;">Свържете се с нас за нов: support@parkbook.bg · 0896 736 916</div></div>`; return;
+  }
+  if(data.error){ document.getElementById('root').innerHTML = `<div class="center"><b>Няма връзка.</b><div class="muted" style="margin-top:8px;">Опитайте пак след малко.</div></div>`; return; }
+  D = data; render();
+}
+
+function render(){
+  const cur = new Date().toISOString().slice(0, 7);
+  const m = D.months.find(x=>x.month === cur) || {views:0, codes:0, done:0, clicks:0, leads:0, sales:0, due:0};
+  const codeMode = D.links.some(l=>l.mode === 'code') || D.codes.length > 0;
+  const prods = [...new Set(D.links.map(l=>PRODUCTS[l.product] || l.product))].join(', ');
+  const cities = [...new Set(D.links.flatMap(l=>l.cities))].map(c=>CITY[c] || c).join(', ') || 'цялата страна';
+  if(!codeMode && tab === 'codes') tab = 'report';
+  let html = `<div class="hd"><h1>${esc(D.partner.name)}</h1><div class="muted">${esc(prods)} · ${esc(cities)} · ${MON[new Date().getMonth()]}</div></div>`;
+  html += codeMode
+    ? `<div class="k"><div><b>${m.views}</b><span>видели офертата</span></div><div><b>${m.codes}</b><span>взели код</span></div><div><b style="color:var(--green)">${m.done}</b><span>изпълнени</span></div></div>`
+    : `<div class="k"><div><b>${m.clicks}</b><span>пратени клиенти</span></div><div><b>${m.leads}</b><span>заявки</span></div><div><b style="color:var(--green)">${m.sales}</b><span>продажби</span></div></div>`;
+  html += `<div class="tabs">${codeMode ? `<a data-tab="codes" class="${tab==='codes'?'act':''}">Кодове</a>` : ''}<a data-tab="report" class="${tab==='report'?'act':''}">Отчет</a><a data-tab="help" class="${tab==='help'?'act':''}">Помощ</a></div>`;
+  if(tab === 'codes') html += codesHtml();
+  else if(tab === 'report') html += reportHtml(codeMode);
+  else html += helpHtml(codeMode);
+  document.getElementById('root').innerHTML = html;
+  document.querySelectorAll('[data-tab]').forEach(a=>a.onclick = ()=>{ tab = a.dataset.tab; render(); });
+  document.querySelectorAll('[data-f]').forEach(a=>a.onclick = ()=>{ filter = a.dataset.f; render(); });
+  document.querySelectorAll('[data-done]').forEach(b=>b.onclick = ()=>openSheet(b.dataset.done, 'done'));
+  document.querySelectorAll('[data-no]').forEach(b=>b.onclick = ()=>openSheet(b.dataset.no, 'no'));
+}
+
+function codesHtml(){
+  const open = D.codes.filter(c=>!c.partner_status), doneL = D.codes.filter(c=>c.partner_status);
+  const list = filter === 'open' ? open : filter === 'done' ? doneL : D.codes;
+  let h = `<div class="filter"><a data-f="open" class="${filter==='open'?'act':''}">За отбелязване (${open.length})</a><a data-f="done" class="${filter==='done'?'act':''}">Отбелязани (${doneL.length})</a><a data-f="all" class="${filter==='all'?'act':''}">Всички</a></div>`;
+  if(!list.length) return h + `<div class="it muted">${filter === 'open' ? '✓ Няма кодове за отбелязване.' : 'Още няма кодове.'}</div>`;
+  return h + list.map(c=>{
+    const where = [c.district, c.city].filter(Boolean).map(esc).join(', ');
+    const wish = c.wanted_day ? ` · желан ден: ${d3(c.wanted_day)}` : '';
+    const prod = D.links.length > 1 ? ` · ${esc(PRODUCTS[c.product] || c.product)}` : '';
+    let badge = '<span class="badge bNew">НОВ</span>', foot = '';
+    if(c.partner_status === 'done'){ badge = `<span class="badge bOk">✓ ${c.partner_amount !== null ? eur(c.partner_amount) : 'изпълнена'}</span>`; foot = `<div class="sub">изпълнена на ${d3(c.partner_done_on)}</div>`; }
+    else if(c.partner_status === 'no'){ badge = `<span class="badge bNo">✗ не дойде</span>`; foot = `<div class="sub">${esc(REASONS[c.partner_reason] || '')}</div>`; }
+    if(c.locked && c.partner_status) badge += ' <span class="badge bLock">🔒</span>';
+    const btns = !c.partner_status && !c.locked ? `<div class="bt"><button class="ok" data-done="${c.code}">✓ Изпълнена</button><button class="no" data-no="${c.code}">✗ Не дойде</button></div>`
+      : c.partner_status && !c.locked ? `<button class="edit" data-${c.partner_status === 'done' ? 'no' : 'done'}="${c.code}">Промени на „${c.partner_status === 'done' ? 'Не дойде' : 'Изпълнена'}“</button>`
+      : !c.partner_status ? `<div class="sub">🔒 Месецът е затворен.</div>` : '';
+    return `<div class="it"><div class="t"><span class="code">${c.code}</span><span>${badge}</span></div><div class="sub">${d2(c.created_at)}${where ? ' · ' + where : ''}${wish}${prod}</div>${foot}${btns}</div>`;
+  }).join('');
+}
+
+function reportHtml(codeMode){
+  const cur = new Date().toISOString().slice(0, 7);
+  const per = D.links.find(l=>l.commission_eur) ? D.links.find(l=>l.commission_eur).commission_eur : 0;
+  const m = D.months.find(x=>x.month === cur);
+  let h = '';
+  if(m){
+    const n = codeMode ? m.done : m.sales;
+    h += `<div class="it" style="border-color:var(--amber)"><div class="muted" style="font-size:12px">${monthName(cur)} (до момента)</div>
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:6px;"><div><b style="font-size:24px">${n}</b> <span class="muted">${codeMode ? 'изпълнени' : 'продажби'}${codeMode && per ? ' × ' + eur(per) : ''}</span></div><b style="font-size:24px; color:var(--amber)">${eur(m.due)}</b></div>
+      <div class="sub" style="margin-top:6px;">${codeMode ? 'Отбелязвайте кодовете до 5-о число на следващия месец — тогава отчетът се затваря и не може да се променя.' : 'Продажбите идват автоматично от Вашия сайт.'} На 1-во число ще получите имейл с окончателната сума.</div></div>`;
+  }
+  const past = D.months.filter(x=>x.month !== cur);
+  if(past.length){
+    h += `<div class="it"><table><tr><th>Месец</th>${codeMode ? '<th>Кодове</th><th>Изпълнени</th>' : '<th>Пратени</th><th>Продажби</th>'}<th>Сума</th></tr>`
+      + past.map(x=>`<tr><td>${x.month.slice(5)}.${x.month.slice(0,4)}</td>${codeMode ? `<td>${x.codes}</td><td>${x.done}</td>` : `<td>${x.clicks}</td><td>${x.sales}</td>`}<td>${eur(x.reported_due !== null ? x.reported_due : x.due)}</td></tr>`).join('')
+      + `</table></div>`;
+  }
+  if(!h) h = `<div class="it muted">Още няма данни. Щом клиент от приложението вземе код или мине през линка Ви, ще се появи тук.</div>`;
+  h += `<div class="it"><b>Как плащате</b><div class="sub" style="line-height:1.5;">По банков път до 15-о число на следващия месец. Банковата сметка и номерът на фактурата идват в имейла на 1-во число. Без лични данни на клиенти — само кодове.</div></div>`;
+  return h;
+}
+
+function helpHtml(codeMode){
+  return `<div class="it"><b>Как работи</b><div class="sub" style="line-height:1.6;">${codeMode
+    ? '1. Клиент от приложението „Моят автомобил“ взима код (напр. MA-7K2Q9) и Ви се обажда или пише.<br>2. Срещу кода получава отстъпката, която сме договорили.<br>3. След услугата натиснете <b>✓ Изпълнена</b> и въведете сумата. Ако не дойде — <b>✗ Не дойде</b> и причината.<br>4. В края на месеца отчетът се смята сам: изпълнени поръчки × договорената сума.'
+    : '1. Клиентите идват на Вашия сайт през нашия линк.<br>2. Вашият сайт ни съобщава автоматично за заявки и продажби.<br>3. В края на месеца отчетът се смята сам.'}</div></div>
+    <div class="it"><b>Сигурност</b><div class="sub" style="line-height:1.6;">Линкът е личен — не го препращайте. Ако го загубите или подозирате, че друг го ползва, пишете ни и веднага ще го сменим. В системата няма имена, телефони или адреси на клиенти.</div></div>
+    <div class="it"><b>Добавете като приложение</b><div class="sub" style="line-height:1.6;">Телефон: меню на браузъра → „Добави към началния екран“. Ще се отваря с едно докосване.</div></div>
+    <div class="it"><b>Контакт</b><div class="sub">PARKBOOK · <a href="mailto:support@parkbook.bg" style="color:var(--amber)">support@parkbook.bg</a> · <a href="tel:+359896736916" style="color:var(--amber)">0896 736 916</a></div></div>`;
+}
+
+// ---- Отбелязване ----
+function openSheet(code, status){
+  const c = D.codes.find(x=>x.code === code);
+  const today = new Date().toISOString().slice(0, 10);
+  const disc = (D.links.find(l=>l.product === c.product) || {}).discount;
+  const s = document.getElementById('sheet');
+  s.innerHTML = status === 'done'
+    ? `<div style="font-size:16px; font-weight:800;">✓ ${code} — изпълнена</div><div class="sub">${[c.district, c.city].filter(Boolean).map(esc).join(', ')} · ${d3(c.created_at)}</div>
+       <label>Дата на изпълнение</label><input type="date" id="sDate" value="${c.partner_done_on || today}" max="${today}">
+       <label>Сума, платена от клиента (€)</label><input id="sAmount" inputmode="decimal" placeholder="напр. 33" value="${c.partner_amount ?? ''}">
+       ${disc ? `<div class="sub" style="margin-top:8px;">С кода клиентът има: ${esc(disc)}</div>` : ''}`
+    : `<div style="font-size:16px; font-weight:800;">✗ ${code} — не дойде</div><div class="sub">${[c.district, c.city].filter(Boolean).map(esc).join(', ')} · ${d3(c.created_at)}</div>
+       <label>Причина</label><select id="sReason">${Object.entries(REASONS).map(([k,v])=>`<option value="${k}" ${c.partner_reason===k?'selected':''}>${v}</option>`).join('')}</select>`;
+  s.innerHTML += `<button class="btn" id="sSave">Запиши</button><div class="err" id="sErr"></div><a class="link" id="sCancel">Отказ</a>`;
+  s.classList.add('open'); document.getElementById('shade').classList.add('on');
+  document.getElementById('sCancel').onclick = closeSheet;
+  document.getElementById('sSave').onclick = async ()=>{
+    const btn = document.getElementById('sSave'), err = document.getElementById('sErr');
+    const body = {action:'mark', code, status};
+    if(status === 'done'){ body.done_on = document.getElementById('sDate').value; body.amount = document.getElementById('sAmount').value.trim(); }
+    else body.reason = document.getElementById('sReason').value;
+    btn.disabled = true; err.textContent = '';
+    const r = await api(body);
+    btn.disabled = false;
+    if(r.error){ err.textContent = r.error === 'locked' ? 'Месецът е затворен — не може да се променя.' : r.error === 'invalid_amount' ? 'Провери сумата.' : 'Не се записа. Опитайте пак.'; return; }
+    closeSheet(); await load();
+  };
+}
+function closeSheet(){ document.getElementById('sheet').classList.remove('open'); document.getElementById('shade').classList.remove('on'); }
+document.getElementById('shade').onclick = closeSheet;
+
+load();
+</script>
+</body>
+</html>
