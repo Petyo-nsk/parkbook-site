@@ -1,0 +1,29 @@
+# Проверка на всеки 15 минути: сайтът, партньорският портал и сървърът (Supabase).
+# Ако нещо не отговаря и при втори опит след минута — проверката пада и GitHub праща имейл.
+name: health
+on:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Проверка
+        run: |
+          SB=https://zqpomakbhmqhdeuefdfj.supabase.co
+          KEY=sb_publishable_TMj8xYglcKFXlCdEx-r0kg_wCxeJ45x
+          check() {
+            local bad=""
+            c=$(curl -s -o /dev/null -w '%{http_code}' -m 20 https://parkbook.bg/); [ "$c" = 200 ] || bad="$bad parkbook.bg=$c"
+            c=$(curl -s -o /dev/null -w '%{http_code}' -m 20 https://parkbook.bg/partner/); [ "$c" = 200 ] || bad="$bad portal-page=$c"
+            c=$(curl -s -o /dev/null -w '%{http_code}' -m 20 -X POST "$SB/rest/v1/rpc/get_renew_partners" -H "apikey: $KEY" -H "Authorization: Bearer $KEY" -H 'content-type: application/json' -d '{}'); [ "$c" = 200 ] || bad="$bad database=$c"
+            # Порталът: грешен ключ → 401 значи, че функцията работи
+            c=$(curl -s -o /dev/null -w '%{http_code}' -m 20 -X POST "$SB/functions/v1/partner-portal" -H 'content-type: application/json' -H 'origin: https://parkbook.bg' -d '{"k":"pp_0","action":"me"}'); [ "$c" = 401 ] || bad="$bad portal-api=$c"
+            echo "$bad"
+          }
+          r=$(check)
+          if [ -n "$r" ]; then echo "Първи опит:$r"; sleep 60; r=$(check); fi
+          if [ -n "$r" ]; then echo "::error::Не отговаря:$r"; exit 1; fi
+          echo "Всичко работи."
