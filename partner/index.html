@@ -26,6 +26,7 @@ body{background:var(--bg); color:var(--ink); font-family:system-ui,-apple-system
 .k div{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:10px 6px; text-align:center;}
 .k b{display:block; font-size:20px;} .k span{font-size:11px; color:var(--muted);}
 .tabs{display:flex; gap:6px; padding:6px 16px 10px;}
+.bell{margin:10px 16px 0; padding:12px 14px; background:var(--panel); border:1px solid var(--line); border-radius:12px;} .bell .bellBtns{display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;} .bell button{padding:8px 14px; border-radius:8px; border:0; background:var(--amber); color:#14171c; font-weight:700; cursor:pointer;} .bell button.ghost{background:var(--panel2); color:var(--ink); border:1px solid var(--line);} .bell #bellMsg:empty{display:none;}
 .promo{margin:10px 16px 0; padding:12px 14px; background:var(--panel); border:1px dashed var(--amber); border-radius:12px;} .promo .pc{display:flex; align-items:center; gap:10px; margin:6px 0;} .promo .pc b{font-size:20px; letter-spacing:1px; color:var(--amber); font-family:ui-monospace,Consolas,monospace;} .promo button{padding:6px 12px; border-radius:8px; border:1px solid var(--line); background:var(--panel2); color:var(--ink); cursor:pointer;}
 .tabs a{padding:7px 13px; border-radius:99px; border:1px solid var(--line); font-size:12.5px; color:var(--muted); cursor:pointer;}
 .tabs a.act{background:rgba(232,163,61,.15); border-color:var(--amber); color:var(--amber); font-weight:700;}
@@ -118,12 +119,14 @@ function render(){
     ? `<div class="k"><div><b>${m.views}</b><span>видели офертата</span></div><div><b>${m.codes}</b><span>взели код</span></div><div><b style="color:var(--green)">${m.done}</b><span>изпълнени</span></div></div>`
     : `<div class="k"><div><b>${m.clicks}</b><span>пратени клиенти</span></div><div><b>${m.leads}</b><span>заявки</span></div><div><b style="color:var(--green)">${m.sales}</b><span>продажби</span></div></div>`;
   if(D.promo) html += `<div class="promo"><div class="muted">Вашият промо код за клиентите — 1 година Премиум безплатно</div><div class="pc"><b>${esc(D.promo.code)}</b><button id="cpPromo">Копирай</button></div><div class="muted">Въвели го: <b>${D.promo.clients}</b> ${D.promo.clients === 1 ? 'клиент' : 'клиенти'}</div></div>`;
+  if(codeMode && D.push && D.push.key) html += bellHtml();
   html += `<div class="tabs">${codeMode ? `<a data-tab="codes" class="${tab==='codes'?'act':''}">Кодове</a>` : ''}<a data-tab="report" class="${tab==='report'?'act':''}">Отчет</a><a data-tab="help" class="${tab==='help'?'act':''}">Помощ</a></div>`;
   if(tab === 'codes') html += codesHtml();
   else if(tab === 'report') html += reportHtml(codeMode);
   else html += helpHtml(codeMode);
   document.getElementById('root').innerHTML = html;
   document.querySelectorAll('[data-tab]').forEach(a=>a.onclick = ()=>{ tab = a.dataset.tab; render(); });
+  bindBell();
   const cp = document.getElementById('cpPromo'); if(cp) cp.onclick = ()=>{ navigator.clipboard.writeText(D.promo.code).then(()=>{ cp.textContent = 'Копирано ✓'; }, ()=>{}); };
   document.querySelectorAll('[data-f]').forEach(a=>a.onclick = ()=>{ filter = a.dataset.f; render(); });
   document.querySelectorAll('[data-done]').forEach(b=>b.onclick = ()=>openSheet(b.dataset.done, 'done'));
@@ -177,8 +180,73 @@ function helpHtml(codeMode){
     ? '1. Клиент от приложението „Моят автомобил“ взима код (напр. MA-7K2Q9) и Ви се обажда или пише.<br>2. Срещу кода получава отстъпката, която сме договорили.<br>3. След услугата натиснете <b>✓ Изпълнена</b> и въведете сумата. Ако не дойде — <b>✗ Не дойде</b> и причината.<br>4. В края на месеца отчетът се смята сам: изпълнени поръчки × договорената сума.'
     : '1. Клиентите идват на Вашия сайт през нашия линк.<br>2. Вашият сайт ни съобщава автоматично за заявки и продажби.<br>3. В края на месеца отчетът се смята сам.'}</div></div>
     <div class="it"><b>Сигурност</b><div class="sub" style="line-height:1.6;">Линкът е личен — не го препращайте. Ако го загубите или подозирате, че друг го ползва, пишете ни и веднага ще го сменим. В системата няма имена, телефони или адреси на клиенти.</div></div>
+    <div class="it"><b>🔔 Известия за нови клиенти</b><div class="sub" style="line-height:1.6;">Натиснете „Включи известията“ горе — щом клиент вземе код за Вас, на телефона идва известие (и имейл, ако сте ни дали имейл). На iPhone първо добавете портала на началния екран и го отворете от иконата.</div></div>
     <div class="it"><b>Добавете като приложение</b><div class="sub" style="line-height:1.6;">Телефон: меню на браузъра → „Добави към началния екран“. Ще се отваря с едно докосване.</div></div>
     <div class="it"><b>Контакт</b><div class="sub">PARKBOOK · <a href="mailto:support@parkbook.bg" style="color:var(--amber)">support@parkbook.bg</a> · <a href="tel:+359896736916" style="color:var(--amber)">0896 736 916</a></div></div>`;
+}
+
+
+// ---- Известия за нови клиенти (20.10.2026) ----
+// Манифестът се прави тук, със стартов адрес, който съдържа личния ключ — така иконата на началния екран
+// отваря портала без нов линк (на iPhone приложението от началния екран няма достъп до паметта на Safari).
+(function(){
+  if(!key) return;
+  const base = location.origin + '/partner/';
+  const m = { name: 'PARKBOOK партньор', short_name: 'PARKBOOK', start_url: base + '#k=' + key, scope: base, display: 'standalone',
+    background_color: '#0e1116', theme_color: '#0e1116', icons: [{ src: location.origin + '/img/mark-512.png', sizes: '512x512', type: 'image/png' }] };
+  const l = document.createElement('link'); l.rel = 'manifest';
+  l.href = 'data:application/manifest+json;charset=utf-8,' + encodeURIComponent(JSON.stringify(m));
+  document.head.appendChild(l);
+})();
+const pushOk = 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
+const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+let pushSub = null;
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').then(async reg=>{
+    if(pushOk){ pushSub = await reg.pushManager.getSubscription(); if(D) render(); }
+  }).catch(()=>{});
+  navigator.serviceWorker.addEventListener('message', e=>{ if(e.data === 'refresh' && key) load(); });
+}
+function b64u(s){ const p = '='.repeat((4 - s.length % 4) % 4); const b = atob((s + p).replace(/-/g, '+').replace(/_/g, '/')); return Uint8Array.from(b, c=>c.charCodeAt(0)); }
+function bellHtml(){
+  let inner;
+  if(!pushOk){
+    inner = isIos && !standalone
+      ? '<b>🔔 Известия за нови клиенти</b><div class="muted">На iPhone: първо добавете портала на началния екран (Safari → „Сподели“ → „Добави към Начален екран“), отворете го от иконата и натиснете тук „Включи“.</div>'
+      : '<b>🔔 Известия</b><div class="muted">Този браузър не поддържа известия. Отворете портала в Chrome (Android) или от началния екран (iPhone).</div>';
+  } else if(Notification.permission === 'denied'){
+    inner = '<b>🔕 Известията са блокирани</b><div class="muted">Разрешете ги от настройките на браузъра за parkbook.bg и опитайте пак.</div>';
+  } else if(pushSub){
+    inner = `<b>🔔 Известията са включени</b><div class="muted">На това устройство ще идва известие за всеки нов клиент с код.${D.push && D.push.devices > 1 ? ' Включени устройства: ' + D.push.devices + '.' : ''}</div>
+      <div class="bellBtns"><button id="pushTest">Пробно известие</button><button id="pushOff" class="ghost">Изключи</button></div>`;
+  } else {
+    inner = `<b>🔔 Разбирайте веднага за нов клиент</b><div class="muted">Известие на телефона, щом клиент вземе код за Вас.${isIos && !standalone ? ' На iPhone — първо добавете портала на началния екран.' : ''}</div>
+      <div class="bellBtns"><button id="pushOn">Включи известията</button></div>`;
+  }
+  return `<div class="bell" id="bell">${inner}<div class="muted" id="bellMsg"></div></div>`;
+}
+function bindBell(){
+  const msg = t=>{ const el = document.getElementById('bellMsg'); if(el) el.textContent = t; };
+  const on = document.getElementById('pushOn'), off = document.getElementById('pushOff'), test = document.getElementById('pushTest');
+  if(on) on.onclick = async ()=>{
+    on.disabled = true; msg('Включване…');
+    try{
+      const perm = await Notification.requestPermission();
+      if(perm !== 'granted'){ msg('Не разрешихте известията.'); on.disabled = false; render(); return; }
+      const reg = await navigator.serviceWorker.ready;
+      pushSub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64u(D.push.key) });
+      const r = await api({ action: 'push_subscribe', sub: pushSub.toJSON(), ua: navigator.userAgent });
+      if(r.error){ msg(r.error === 'too_many_devices' ? 'Има вече 10 устройства — изключете някое.' : 'Грешка. Опитайте пак.'); on.disabled = false; return; }
+      D.push.devices = (D.push.devices || 0) + 1; render();
+      await api({ action: 'push_test' });
+    }catch(e){ msg('Не успях да включа известията на това устройство.'); on.disabled = false; }
+  };
+  if(test) test.onclick = async ()=>{ msg('Пращам…'); const r = await api({ action: 'push_test' }); msg(r.sent ? 'Пратено ✓ — трябва да дойде след секунди.' : 'Не стигна до устройство — изключете и включете пак.'); };
+  if(off) off.onclick = async ()=>{
+    try{ const ep = pushSub.endpoint; await pushSub.unsubscribe(); await api({ action: 'push_unsubscribe', endpoint: ep }); }catch(e){}
+    pushSub = null; D.push.devices = Math.max(0, (D.push.devices || 1) - 1); render();
+  };
 }
 
 // ---- Отбелязване ----
