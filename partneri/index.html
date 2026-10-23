@@ -285,5 +285,9 @@ document.getElementById('f').addEventListener('submit', async e=>{
   btn.disabled = false;
 });
 </script>
+<script>
+// Брояч без бисквитки (23.10.2026): само „страница + ден“, без номер на устройството — за таблото в страницата с паролата.
+(function(){ try{ fetch("https://zqpomakbhmqhdeuefdfj.supabase.co/rest/v1/rpc/log_site_view", {method:"POST", headers:{"Content-Type":"application/json", "apikey":"sb_publishable_TMj8xYglcKFXlCdEx-r0kg_wCxeJ45x", "Authorization":"Bearer sb_publishable_TMj8xYglcKFXlCdEx-r0kg_wCxeJ45x"}, body:JSON.stringify({p_page:"partneri"}), keepalive:true}).catch(function(){}); }catch(e){} })();
+</script>
 </body>
 </html>

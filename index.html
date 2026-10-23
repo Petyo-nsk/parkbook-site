@@ -349,8 +349,8 @@ footer a{color:var(--muted);}
   <div class="wrap">
     <span lang="bg">© 2026 <button class="coLink" type="button" data-company>„Паркбоок“ ЕООД</button> · ЕИК 208335426 · гр. Бургас</span>
     <span lang="en">© 2026 <button class="coLink" type="button" data-company>Parkbook Ltd.</button> · UIC 208335426 · Burgas, Bulgaria</span>
-    <span lang="bg">Сайтът не ползва бисквитки и не следи посетителите.</span>
-    <span lang="en">This site uses no cookies and does not track visitors.</span>
+    <span lang="bg">Сайтът не ползва бисквитки и не разпознава посетителите — броим само колко пъти е отворена всяка страница на ден.</span>
+    <span lang="en">This site uses no cookies and does not identify visitors — we only count how many times each page is opened per day.</span>
   </div>
 </footer>
 
@@ -478,6 +478,10 @@ document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',
   const upd = ()=>{ prev.disabled = track.scrollLeft < 5; next.disabled = track.scrollLeft + track.clientWidth > track.scrollWidth - 5; };
   track.addEventListener('scroll', upd, {passive:true}); addEventListener('resize', upd); upd();
 })();
+</script>
+<script>
+// Брояч без бисквитки (23.10.2026): само „страница + ден“, без номер на устройството — за таблото в страницата с паролата.
+(function(){ try{ fetch("https://zqpomakbhmqhdeuefdfj.supabase.co/rest/v1/rpc/log_site_view", {method:"POST", headers:{"Content-Type":"application/json", "apikey":"sb_publishable_TMj8xYglcKFXlCdEx-r0kg_wCxeJ45x", "Authorization":"Bearer sb_publishable_TMj8xYglcKFXlCdEx-r0kg_wCxeJ45x"}, body:JSON.stringify({p_page:"home"}), keepalive:true}).catch(function(){}); }catch(e){} })();
 </script>
 </body>
 </html>
