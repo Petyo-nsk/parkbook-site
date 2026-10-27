@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Моят автомобил — изтегли</title>
+<link rel="icon" href="../img/icon-512.png">
+<style>
+  /* QR от визитките (27.10.2026): Android → Google Play, iPhone → App Store (след одобрение), компютър → двата бутона.
+     ?p=<партньор> — броим сканиранията по партньор (страница "qr:<партньор>" в site_views, без бисквитки). */
+  :root{ --bg:#0d0f12; --ink:#fff; --muted:#a8b0bb; --neon:#c6f432; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; background:var(--bg); color:var(--ink);
+        font-family:system-ui,"Segoe UI",Roboto,sans-serif; padding:24px 16px; text-align:center; }
+  .box{ max-width:420px; width:100%; }
+  h1{ font-size:26px; margin:14px 0 6px; } h1 i{ color:var(--neon); font-style:normal; }
+  p{ color:var(--muted); margin:0 0 22px; line-height:1.45; }
+  a.btn{ display:block; margin:10px 0; padding:14px 18px; border-radius:14px; background:var(--neon); color:#0d0f12; font-weight:800; text-decoration:none; font-size:17px; }
+  .soon{ display:block; margin:10px 0; padding:14px 18px; border-radius:14px; border:1px solid #2a2f37; color:var(--muted); font-weight:700; }
+  img.logo{ width:84px; height:84px; border-radius:20px; }
+</style>
+</head>
+<body>
+<div class="box">
+  <img class="logo" src="../img/icon-512.png" alt="">
+  <h1>Моят автомобил<i>.</i></h1>
+  <p>Сроковете на колата ти на едно място — ГО, винетка, преглед, каско.</p>
+  <a class="btn" id="play" href="#">Изтегли от Google Play</a>
+  <a class="btn" id="ios" href="#" hidden>Изтегли от App Store</a>
+  <span class="soon" id="iosSoon">iPhone — съвсем скоро</span>
+</div>
+<script>
+var IOS_LIVE = false;   // true, щом Apple одобри приложението → iPhone отива направо в App Store
+var Q = new URLSearchParams(location.search), P = (Q.get('p') || '').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 30);
+var PLAY = 'https://play.google.com/store/apps/details?id=com.parkbook.moyatavtomobil&referrer='
+  + encodeURIComponent('utm_source=qr&utm_medium=card&utm_campaign=' + (P || 'parkbook'));
+var IOS = 'https://apps.apple.com/bg/app/id6827665344';
+document.getElementById('play').href = PLAY;
+document.getElementById('ios').href = IOS;
+if(IOS_LIVE){ document.getElementById('ios').hidden = false; document.getElementById('iosSoon').hidden = true; }
+try{ fetch("https://zqpomakbhmqhdeuefdfj.supabase.co/rest/v1/rpc/log_site_view", {method:"POST", keepalive:true,
+  headers:{"Content-Type":"application/json", "apikey":"sb_publishable_TMj8xYglcKFXlCdEx-r0kg_wCxeJ45x", "Authorization":"Bearer sb_publishable_TMj8xYglcKFXlCdEx-r0kg_wCxeJ45x"},
+  body:JSON.stringify({p_page: P ? 'qr:' + P : 'qr'})}).catch(function(){}); }catch(e){}
+var ua = navigator.userAgent || '';
+var isIos = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+if(/Android/i.test(ua)) location.replace(PLAY);
+else if(isIos && IOS_LIVE) location.replace(IOS);
+</script>
+</body>
+</html>
