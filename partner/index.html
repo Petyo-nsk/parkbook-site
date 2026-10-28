@@ -101,7 +101,7 @@ async function load(){
   const data = await api({action:'me'});
   if(data.error === 'invalid_key'){
     try{ localStorage.removeItem(KEY_STORE); }catch(e){}
-    document.getElementById('root').innerHTML = `<div class="center"><b>Линкът не е валиден или е спрян.</b><div class="muted" style="margin-top:8px;">Свържете се с нас за нов: support@parkbook.bg · 0896 736 916</div></div>`; return;
+    document.getElementById('root').innerHTML = `<div class="center"><b>Линкът не е валиден или е спрян.</b><div class="muted" style="margin-top:8px;">Свържете се с нас за нов: support@parkbook.bg · 0894 900 690</div></div>`; return;
   }
   if(data.error){ document.getElementById('root').innerHTML = `<div class="center"><b>Няма връзка.</b><div class="muted" style="margin-top:8px;">Опитайте пак след малко.</div></div>`; return; }
   D = data; render();
@@ -184,7 +184,7 @@ function helpHtml(codeMode){
     <div class="it"><b>Сигурност</b><div class="sub" style="line-height:1.6;">Линкът е личен — не го препращайте. Ако го загубите или подозирате, че друг го ползва, пишете ни и веднага ще го сменим. В системата няма имена, телефони или адреси на клиенти.</div></div>
     <div class="it"><b>🔔 Известия за нови клиенти</b><div class="sub" style="line-height:1.6;">Натиснете „Включи известията“ горе — щом клиент вземе код за Вас, на телефона идва известие (и имейл, ако сте ни дали имейл). На iPhone първо добавете портала на началния екран и го отворете от иконата.</div></div>
     <div class="it"><b>Добавете като приложение</b><div class="sub" style="line-height:1.6;">Телефон: меню на браузъра → „Добави към началния екран“. Ще се отваря с едно докосване.</div></div>
-    <div class="it"><b>Контакт</b><div class="sub">PARKBOOK · <a href="mailto:support@parkbook.bg" style="color:var(--amber)">support@parkbook.bg</a> · <a href="tel:+359896736916" style="color:var(--amber)">0896 736 916</a></div></div>`;
+    <div class="it"><b>Контакт</b><div class="sub">PARKBOOK · <a href="mailto:support@parkbook.bg" style="color:var(--amber)">support@parkbook.bg</a> · <a href="tel:+359894900690" style="color:var(--amber)">0894 900 690</a></div></div>`;
 }
 
 
