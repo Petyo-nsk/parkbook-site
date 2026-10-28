@@ -156,12 +156,14 @@ function codesHtml(){
 function reportHtml(codeMode){
   const cur = new Date().toISOString().slice(0, 7);
   const per = D.links.find(l=>l.commission_eur) ? D.links.find(l=>l.commission_eur).commission_eur : 0;
+  const pctL = D.links.find(l=>Number(l.commission_pct));
+  const pctTxt = pctL ? (per ? ' + ' : ' · ') + Number(pctL.commission_pct) + '% от цената' : '';
   const m = D.months.find(x=>x.month === cur);
   let h = '';
   if(m){
     const n = codeMode ? m.done : m.sales;
     h += `<div class="it" style="border-color:var(--amber)"><div class="muted" style="font-size:12px">${monthName(cur)} (до момента)</div>
-      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:6px;"><div><b style="font-size:24px">${n}</b> <span class="muted">${codeMode ? 'изпълнени' : 'продажби'}${codeMode && per ? ' × ' + eur(per) : ''}</span></div><b style="font-size:24px; color:var(--amber)">${eur(m.due)}</b></div>
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:6px;"><div><b style="font-size:24px">${n}</b> <span class="muted">${codeMode ? 'изпълнени' : 'продажби'}${codeMode && per ? ' × ' + eur(per) : ''}${codeMode ? pctTxt : ''}</span></div><b style="font-size:24px; color:var(--amber)">${eur(m.due)}</b></div>
       <div class="sub" style="margin-top:6px;">${codeMode ? 'Отбелязвайте кодовете до 5-о число на следващия месец — тогава отчетът се затваря и не може да се променя.' : 'Продажбите идват автоматично от Вашия сайт.'} На 6-о число ще получите имейл с окончателната сума.</div></div>`;
   }
   const past = D.months.filter(x=>x.month !== cur);
@@ -177,7 +179,7 @@ function reportHtml(codeMode){
 
 function helpHtml(codeMode){
   return `<div class="it"><b>Как работи</b><div class="sub" style="line-height:1.6;">${codeMode
-    ? '1. Клиент от приложението „Моят автомобил“ взима код (напр. MA-7K2Q9) и Ви се обажда или пише.<br>2. Срещу кода получава отстъпката, която сме договорили.<br>3. След услугата натиснете <b>✓ Изпълнена</b> и въведете сумата. Ако не дойде — <b>✗ Не дойде</b> и причината.<br>4. В края на месеца отчетът се смята сам: изпълнени поръчки × договорената сума.'
+    ? '1. Клиент от приложението „Моят автомобил“ взима код (напр. MA-7K2Q9) и Ви се обажда или пише.<br>2. Срещу кода получава отстъпката, която сме договорили.<br>3. След услугата натиснете <b>✓ Изпълнена</b> и въведете сумата (при гражданска и каско — цената на полицата). Ако не дойде — <b>✗ Не дойде</b> и причината.<br>4. В края на месеца отчетът се смята сам: изпълнени поръчки × договорената сума, а при процент — договореният процент от въведените цени.'
     : '1. Клиентите идват на Вашия сайт през нашия линк.<br>2. Вашият сайт ни съобщава автоматично за заявки и продажби.<br>3. В края на месеца отчетът се смята сам.'}</div></div>
     <div class="it"><b>Сигурност</b><div class="sub" style="line-height:1.6;">Линкът е личен — не го препращайте. Ако го загубите или подозирате, че друг го ползва, пишете ни и веднага ще го сменим. В системата няма имена, телефони или адреси на клиенти.</div></div>
     <div class="it"><b>🔔 Известия за нови клиенти</b><div class="sub" style="line-height:1.6;">Натиснете „Включи известията“ горе — щом клиент вземе код за Вас, на телефона идва известие (и имейл, ако сте ни дали имейл). На iPhone първо добавете портала на началния екран и го отворете от иконата.</div></div>
@@ -253,12 +255,16 @@ function bindBell(){
 function openSheet(code, status){
   const c = D.codes.find(x=>x.code === code);
   const today = new Date().toISOString().slice(0, 10);
-  const disc = (D.links.find(l=>l.product === c.product) || {}).discount;
+  const lk = D.links.find(l=>l.product === c.product) || {};
+  const disc = lk.discount;
+  // При договор с процент (ГО, каско…) въвеждат цената на полицата — от нея се смята нашият дял; полето е задължително
+  const pct = Number(lk.commission_pct) || 0, policy = pct > 0 && ['civil', 'casco'].includes(c.product);
   const s = document.getElementById('sheet');
   s.innerHTML = status === 'done'
     ? `<div style="font-size:16px; font-weight:800;">✓ ${code} — изпълнена</div><div class="sub">${[c.district, c.city].filter(Boolean).map(esc).join(', ')} · ${d3(c.created_at)}</div>
        <label>Дата на изпълнение</label><input type="date" id="sDate" value="${c.partner_done_on || today}" max="${today}">
-       <label>Сума, платена от клиента (€)</label><input id="sAmount" inputmode="decimal" placeholder="напр. 33" value="${c.partner_amount ?? ''}">
+       <label>${policy ? 'Цена на полицата (€) — задължително' : pct ? 'Сума, платена от клиента (€) — задължително' : 'Сума, платена от клиента (€)'}</label><input id="sAmount" inputmode="decimal" placeholder="${policy ? 'напр. 320' : 'напр. 33'}" value="${c.partner_amount ?? ''}">
+       ${pct ? `<div class="sub" style="margin-top:8px;">Дял за PARKBOOK: ${pct}% от ${policy ? 'цената на полицата' : 'сумата'}${Number(lk.commission_eur) ? ' + ' + eur(lk.commission_eur) : ''}.</div>` : ''}
        ${disc ? `<div class="sub" style="margin-top:8px;">С кода клиентът има: ${esc(disc)}</div>` : ''}`
     : `<div style="font-size:16px; font-weight:800;">✗ ${code} — не дойде</div><div class="sub">${[c.district, c.city].filter(Boolean).map(esc).join(', ')} · ${d3(c.created_at)}</div>
        <label>Причина</label><select id="sReason">${Object.entries(REASONS).map(([k,v])=>`<option value="${k}" ${c.partner_reason===k?'selected':''}>${v}</option>`).join('')}</select>`;
@@ -273,7 +279,7 @@ function openSheet(code, status){
     btn.disabled = true; err.textContent = '';
     const r = await api(body);
     btn.disabled = false;
-    if(r.error){ err.textContent = r.error === 'locked' ? 'Месецът е затворен — не може да се променя.' : r.error === 'invalid_amount' ? 'Провери сумата.' : 'Не се записа. Опитайте пак.'; return; }
+    if(r.error){ err.textContent = r.error === 'locked' ? 'Месецът е затворен — не може да се променя.' : r.error === 'invalid_amount' ? 'Провери сумата.' : r.error === 'amount_required' ? 'Въведете цената — от нея се смята отчетът.' : 'Не се записа. Опитайте пак.'; return; }
     closeSheet(); await load();
   };
 }
