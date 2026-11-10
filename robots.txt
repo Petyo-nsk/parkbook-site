@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /partner/
+Sitemap: https://parkbook.bg/sitemap.xml
