@@ -31,7 +31,7 @@
   <span class="soon" id="iosSoon">iPhone — съвсем скоро</span>
 </div>
 <script>
-var IOS_LIVE = false;   // true, щом Apple одобри приложението → iPhone отива направо в App Store
+var IOS_LIVE = true;    // true, щом Apple одобри приложението → iPhone отива направо в App Store
 var Q = new URLSearchParams(location.search), P = (Q.get('p') || '').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 30);
 var PLAY = 'https://play.google.com/store/apps/details?id=com.parkbook.moyatavtomobil&referrer='
   + encodeURIComponent('utm_source=qr&utm_medium=card&utm_campaign=' + (P || 'parkbook'));
