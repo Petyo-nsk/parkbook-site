@@ -39,7 +39,7 @@ var CODE = (Q.get('code') || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0
 var CAMP = (Q.get('utm_campaign') || '').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40);
 var PLAY = 'https://play.google.com/store/apps/details?id=com.parkbook.moyatavtomobil&referrer='
   + encodeURIComponent(CAMP ? 'utm_source=meta&utm_medium=paid_social&utm_campaign=' + CAMP + (CODE ? '&utm_content=' + CODE : '')
-                           : 'utm_source=qr&utm_medium=card&utm_campaign=' + (P || 'parkbook'));
+                           : (P ? 'utm_source=qr&utm_medium=card&utm_campaign=' + P : 'utm_source=site&utm_medium=app_page&utm_campaign=parkbook'));
 var IOS = CODE ? 'https://apps.apple.com/redeem?ctx=offercodes&id=6827665344&code=' + CODE
                : 'https://apps.apple.com/bg/app/id6827665344';
 if(CODE){
@@ -52,7 +52,7 @@ document.getElementById('ios').href = IOS;
 if(IOS_LIVE){ document.getElementById('ios').hidden = false; document.getElementById('iosSoon').hidden = true; }
 try{ fetch("https://zqpomakbhmqhdeuefdfj.supabase.co/rest/v1/rpc/log_site_view", {method:"POST", keepalive:true,
   headers:{"Content-Type":"application/json", "apikey":"sb_publishable_TMj8xYglcKFXlCdEx-r0kg_wCxeJ45x", "Authorization":"Bearer sb_publishable_TMj8xYglcKFXlCdEx-r0kg_wCxeJ45x"},
-  body:JSON.stringify({p_page: CODE ? 'code:' + CODE : (P ? 'qr:' + P : 'qr')})}).catch(function(){}); }catch(e){}
+  body:JSON.stringify({p_page: CODE ? 'code:' + CODE : (P ? 'qr:' + P : (CAMP ? 'ad:' + CAMP : 'app'))})}).catch(function(){}); }catch(e){}
 var ua = navigator.userAgent || '';
 var isIos = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
 if(/Android/i.test(ua)) location.replace(PLAY);
