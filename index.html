@@ -58,6 +58,27 @@ h1 em{font-style:normal; color:var(--accent);}
 .appicon{width:min(260px,70%); margin:0 auto; border-radius:22%; box-shadow:0 30px 60px rgba(0,0,0,.5);}
 
 section{padding:56px 0;}
+/* Подкрепи (21.11.2026): три нива, талисманът говори */
+#support .say{display:flex; align-items:center; gap:14px; background:var(--panel); border:1px solid var(--line); border-radius:999px; padding:10px 18px 10px 12px; width:max-content; max-width:100%; margin:0 0 26px;}
+#support .say .face{width:44px; height:44px; flex:none; border-radius:50%; background:#e8a33d; display:grid; place-items:center; font-size:1.3rem;}
+#support .say p{margin:0; font-size:.98rem; color:#dfe3ea;}
+.tiers{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; align-items:stretch;}
+.tier{position:relative; background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:22px 20px 20px; display:flex; flex-direction:column; transition:transform .15s, border-color .15s;}
+.tier:hover{transform:translateY(-3px); border-color:#3a4150;}
+.tier.gold{border-color:rgba(198,244,50,.55); background:linear-gradient(180deg, rgba(198,244,50,.08), var(--panel) 60%);}
+.tier .lvl{font-size:.74rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:700;}
+.tier .big{font-size:2rem; line-height:1; margin:10px 0 6px;}
+.tier h3{margin:0 0 6px; font-size:1.08rem;}
+.tier .cost{color:var(--accent); font-weight:800; font-size:.95rem; margin-bottom:8px;}
+.tier p{margin:0 0 16px; color:var(--muted); font-size:.93rem; flex:1;}
+.tier .acts{display:flex; flex-wrap:wrap; gap:8px;}
+.tier .acts a, .tier .acts button{display:inline-block; padding:10px 14px; border-radius:999px; font:inherit; font-size:.88rem; font-weight:700; text-decoration:none; cursor:pointer; border:1px solid var(--line); color:var(--ink); background:transparent;}
+.tier.gold .acts a.main{background:var(--accent); color:#111316; border-color:var(--accent);}
+.tier .tag{position:absolute; top:-11px; right:16px; background:var(--accent); color:#111316; font-size:.72rem; font-weight:800; padding:3px 10px; border-radius:999px; letter-spacing:.04em;}
+.tier .react{min-height:1.4em; margin-top:12px; font-size:.86rem; color:#c9cfd8; font-style:italic; opacity:0; transition:opacity .2s;}
+.tier:hover .react, .tier:focus-within .react{opacity:1;}
+#support .fine{margin:18px 0 0; color:var(--muted); font-size:.85rem;}
+@media (max-width:760px){ .tiers{grid-template-columns:1fr;} .tier .react{opacity:1;} }
 section.alt{background:#15181c; border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
 h2{font-size:clamp(1.5rem,3.2vw,2rem); line-height:1.2; margin:0 0 10px; letter-spacing:-.02em; font-weight:800;}
 /* Заглавията в стила на логото: бял плътен текст + неоново зелена точка накрая („parkbook.“) */
@@ -194,6 +215,7 @@ footer a{color:var(--muted);}
     <nav>
       <a href="#app"><span lang="bg">Приложението</span><span lang="en">The app</span></a>
       <a href="#company"><span lang="bg">Фирмата</span><span lang="en">Company</span></a>
+      <a href="#support"><span lang="bg">Подкрепи</span><span lang="en">Support</span></a>
       <a href="blog/"><span lang="bg">Полезно</span><span lang="en">Guides</span></a>
       <a href="#contact"><span lang="bg">Контакт</span><span lang="en">Contact</span></a>
     </nav>
@@ -318,6 +340,69 @@ footer a{color:var(--muted);}
   </div>
 </section>
 
+<section id="support">
+  <div class="wrap">
+    <h2 class="dot" lang="bg">Подкрепи „Моят автомобил“</h2>
+    <h2 class="dot" lang="en">Support “My Car”</h2>
+    <div class="say"><div class="face" aria-hidden="true">🚗</div>
+      <p lang="bg">Харесва ти приложението? Има три начина да ни помогнеш да го правим по-добро. Третият ми е любим.</p>
+      <p lang="en">Like the app? There are three ways to help us make it better. The third one is my favourite.</p>
+    </div>
+
+    <div class="tiers" lang="bg">
+      <div class="tier">
+        <div class="lvl">Ниво 1</div><div class="big">🥉</div>
+        <h3>Сподели с приятел</h3><div class="cost">0 € · 10 секунди</div>
+        <p>Онзи приятел с изтеклата винетка. Знаеш кой. Линкът сам познава дали е с Android или iPhone.</p>
+        <div class="acts"><button type="button" data-share="bg">↗ Сподели</button></div>
+        <div class="react">— Ако го изпратиш, обещавам да не му мрънкам първата седмица.</div>
+      </div>
+      <div class="tier">
+        <div class="lvl">Ниво 2</div><div class="big">🥈</div>
+        <h3>Остави оценка</h3><div class="cost">0 € · 30 секунди</div>
+        <p>Пет звезди в магазина ни вдигат нагоре в търсенето — така ни намират хора, за които не плащаме реклама.</p>
+        <div class="acts"><a href="https://play.google.com/store/apps/details?id=com.parkbook.moyatavtomobil" target="_blank" rel="noopener">★ Google Play</a><a href="https://apps.apple.com/bg/app/id6827665344?action=write-review" target="_blank" rel="noopener">★ App Store</a></div>
+        <div class="react">— Ако са четири звезди, кажи ми защо. Ако са пет — благодаря, ще се похваля на другите коли.</div>
+      </div>
+      <div class="tier gold">
+        <span class="tag">НАЙ-ПОЛЕЗНО</span>
+        <div class="lvl">Ниво 3</div><div class="big">🥇</div>
+        <h3>Вземи Премиум</h3><div class="cost">5,99 € на година · 0,50 € на месец</div>
+        <p>Напомняния за гражданска, винетка, преглед и каско + до 10 коли и мотори. Това плаща сървърите, проверката на винетки и новите функции. Без реклами — никога.</p>
+        <div class="acts"><a class="main" href="app/?utm_campaign=site_support" target="_blank" rel="noopener">Вземи Премиум</a><a href="app/?utm_campaign=site_support&amp;code=AUTO30" target="_blank" rel="noopener">Пробвай 30 дни безплатно</a></div>
+        <div class="react">— По-евтино от една глоба. Много по-евтино. Не питай откъде знам.</div>
+      </div>
+    </div>
+
+    <div class="tiers" lang="en">
+      <div class="tier">
+        <div class="lvl">Level 1</div><div class="big">🥉</div>
+        <h3>Share with a friend</h3><div class="cost">€0 · 10 seconds</div>
+        <p>That friend with the expired vignette. You know the one. The link detects Android or iPhone by itself.</p>
+        <div class="acts"><button type="button" data-share="en">↗ Share</button></div>
+        <div class="react">— Send it and I promise not to nag them for the first week.</div>
+      </div>
+      <div class="tier">
+        <div class="lvl">Level 2</div><div class="big">🥈</div>
+        <h3>Leave a rating</h3><div class="cost">€0 · 30 seconds</div>
+        <p>Five stars push us up in store search — that’s how people find us without us paying for ads.</p>
+        <div class="acts"><a href="https://play.google.com/store/apps/details?id=com.parkbook.moyatavtomobil" target="_blank" rel="noopener">★ Google Play</a><a href="https://apps.apple.com/bg/app/id6827665344?action=write-review" target="_blank" rel="noopener">★ App Store</a></div>
+        <div class="react">— Four stars? Tell me why. Five? Thanks, I’ll brag to the other cars.</div>
+      </div>
+      <div class="tier gold">
+        <span class="tag">MOST USEFUL</span>
+        <div class="lvl">Level 3</div><div class="big">🥇</div>
+        <h3>Get Premium</h3><div class="cost">€5.99 a year · €0.50 a month</div>
+        <p>Reminders for insurance, vignette, inspection and casco + up to 10 cars and motorcycles. It pays for the servers, the vignette checks and new features. No ads — ever.</p>
+        <div class="acts"><a class="main" href="app/?utm_campaign=site_support" target="_blank" rel="noopener">Get Premium</a><a href="app/?utm_campaign=site_support&amp;code=AUTO30" target="_blank" rel="noopener">Try 30 days free</a></div>
+        <div class="react">— Cheaper than a fine. Much cheaper. Don’t ask how I know.</div>
+      </div>
+    </div>
+    <p class="fine" lang="bg">Премиумът се купува в приложението през Google Play или App Store и се спира по всяко време от настройките на телефона. Кодът за 30 дни се въвежда в приложението („Премиум → Промокод“); на iPhone линкът го въвежда сам.</p>
+    <p class="fine" lang="en">Premium is bought inside the app through Google Play or the App Store and can be cancelled any time in your phone settings. The 30-day code is entered in the app (“Premium → Promo code”); on iPhone the link enters it for you.</p>
+  </div>
+</section>
+
 <!-- Данните на фирмата — в прозорец, който се отваря от името на фирмата долу вляво или от „Фирмата“ в менюто.
      Остават в страницата (законът изисква да са лесно достъпни), само не заемат място. -->
 <dialog id="company" class="companyDlg" aria-labelledby="companyTitle">
@@ -393,6 +478,18 @@ footer a{color:var(--muted);}
 
 <script>
 // Когато Google одобри приложението: true → вместо „Скоро в Google Play“ излиза бутон „Изтегли от Google Play“
+// Подкрепи → „Сподели“: системният прозорец за споделяне (телефон); на компютър — копира линка
+document.querySelectorAll('[data-share]').forEach(function(b){
+  b.addEventListener('click', function(){
+    var bg = b.dataset.share === 'bg';
+    var d = { title: bg ? 'Моят автомобил – ГО и винетка' : 'My Car – Insurance & Vignette',
+      text: bg ? 'Напомня ти за гражданската, винетката, прегледа и каското, преди да изтекат. Безплатно, без регистрация.' : 'Reminds you about insurance, vignette, inspection and casco before they expire. Free, no sign-up.',
+      url: 'https://parkbook.bg/app/?utm_campaign=share_site' };
+    if (navigator.share) { navigator.share(d).catch(function(){}); return; }
+    var old = b.textContent;
+    navigator.clipboard.writeText(d.url).then(function(){ b.textContent = bg ? 'Линкът е копиран ✓' : 'Link copied ✓'; setTimeout(function(){ b.textContent = old; }, 2000); }, function(){});
+  });
+});
 const PLAY_LIVE = true;   // публикувано в Google Play на 24.10.2026
 if(PLAY_LIVE){ document.getElementById('playSoon').hidden = true; document.getElementById('playBtn').hidden = false; }
 // Езикът е същият като избрания в приложението (същият ключ); ?lang=en го задава от линк
