@@ -244,7 +244,7 @@ function reportHtml(codeMode){
     h += `<div class="it" style="border-color:var(--amber)"><div class="muted" style="font-size:12px">${Q ? Q.label + ' · ' + Q.names : monthName(cur)} (до момента)</div>
       <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:6px;"><div><b style="font-size:24px">${n}</b> <span class="muted">${codeMode ? 'изпълнени' : 'продажби'}${codeMode && per ? ' × ' + eur(per) : ''}${codeMode ? pctTxt : ''}</span></div><b style="font-size:24px; color:var(--amber)">${eur(due)}</b></div>
       <div class="sub" style="margin-top:6px;">${codeMode
-        ? (Q ? 'Отбелязвайте всеки код до ' + (D.partner.mark_deadline || '5 работни дни') + ' след изпълнение или отказ. Тримесечието може да се допълва и поправя до 5-о число на месеца след края му — на 6-о число данните се заключват.'
+        ? (Q ? 'Отбелязвайте всеки код до ' + (D.partner.mark_deadline || '3 работни дни') + ' след изпълнение или отказ. Тримесечието може да се допълва и поправя до 5-о число на месеца след края му — на 6-о число данните се заключват.'
              : 'Отбелязвайте кодовете до 5-о число на следващия месец — на 6-о число отчетът се затваря и не може да се променя.')
         : 'Продажбите идват автоматично от Вашия сайт.'}</div></div>`;
   }
@@ -267,7 +267,7 @@ function termsHtml(){
   const share = l => [Number(l.commission_eur) ? eur(l.commission_eur) + ' на поръчка' : '', Number(l.commission_pct) ? Number(l.commission_pct) + '% от сумата' : ''].filter(Boolean).join(' + ') || 'без възнаграждение';
   return `<div class="it"><b>Вашите условия</b>${D.partner.contract_signed_on ? ` <span class="muted" style="font-size:12px;">· договор от ${d3(D.partner.contract_signed_on)}</span>` : ''}
     <div class="terms" style="margin-top:6px;">${D.links.map(l=>`<div><b style="font-weight:600;">${esc(PRODUCTS[l.product] || l.product)}${l.active ? '' : ' <span class="muted" style="font-weight:400;">(още не е пусната)</span>'}</b><span>${l.discount ? 'клиентът: ' + esc(l.discount) + '<br>' : ''}PARKBOOK: ${share(l)}</span></div>`).join('')}</div>
-    <div class="sub">Отбелязване на кодовете: до ${esc(D.partner.mark_deadline || '5 работни дни')} след изпълнение или отказ. Отчет: ${isQ() ? 'на тримесечие' : 'всеки месец'}. Възнаграждение се дължи само за изпълнени поръчки с код. Услугата и отговорността за нея са Ваши (Общи условия, т. 4).</div></div>`;
+    <div class="sub">Отбелязване на кодовете: до ${esc(D.partner.mark_deadline || '3 работни дни')} след изпълнение или отказ. Отчет: ${isQ() ? 'на тримесечие' : 'всеки месец'}. Възнаграждение се дължи само за изпълнени поръчки с код. Услугата и отговорността за нея са Ваши (Общи условия, т. 4).</div></div>`;
 }
 
 function helpHtml(codeMode){
