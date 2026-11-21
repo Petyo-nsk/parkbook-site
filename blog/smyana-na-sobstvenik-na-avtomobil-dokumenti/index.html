@@ -55,11 +55,28 @@ footer{border-top:1px solid var(--line); padding:26px 0; color:var(--muted); fon
 footer .wrap{display:flex; flex-wrap:wrap; gap:8px 20px;}
 @media (max-width:600px){ .cta{grid-template-columns:1fr;} nav{gap:14px;} nav a{font-size:.85rem;} }
 </style>
+<style>
+/* Анимирано лого (21.11.2026): „чертане“ в хедъра веднъж на сесия, „паркиране“ във футъра при скрол до края. Прозрачен WebM ~55 KB; Safari/iPhone виждат статичното лого. */
+.brand{position:relative;}
+.logoDraw{position:relative; display:none; width:222px; height:40px; overflow:hidden; margin-left:-8px;}
+.logoDraw video{position:absolute; left:-100px; top:-98px; width:421px; height:237px; pointer-events:none;}
+.brand.anim .logoDraw{display:block;}
+.brand.anim #brandImg{opacity:0; position:absolute; left:0; top:0;}
+.brand.anim.done #brandImg{opacity:1; position:static; transition:opacity .35s;}
+.brand.anim.done .logoDraw{display:none;}
+.logoParkWrap{text-align:center; padding-bottom:0 !important;}
+.logoPark{width:min(380px, 70vw); aspect-ratio:16/9; display:block; margin:0 auto -30px; opacity:0; transition:opacity .4s;}
+.logoPark.on{opacity:1;}
+@media (prefers-reduced-motion: reduce){ .logoParkWrap{display:none;} }
+</style>
 </head>
 <body>
 <header>
   <div class="wrap bar">
-    <a class="brand" href="../../"><img src="../../img/logo.png" width="1120" height="260" alt="parkbook"></a>
+    <a class="brand" href="../../" id="brandA">
+      <span class="logoDraw" aria-hidden="true"><video id="logoDraw" muted playsinline preload="auto"></video></span>
+      <img src="../../img/logo.png" width="1120" height="260" alt="parkbook" id="brandImg">
+    </a>
     <nav>
       <a href="../../#app">Приложението</a>
       <a href="../../blog/" class="on">Полезно</a>
@@ -116,6 +133,7 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px 20px;}
   </div>
 </main>
 <footer>
+  <div class="wrap logoParkWrap"><video id="logoPark" class="logoPark" muted playsinline preload="none" aria-hidden="true"></video></div>
   <div class="wrap">
     <span>© 2026 „Паркбоок“ ЕООД · ЕИК 208335426 · гр. Бургас · <a href="../../">parkbook.bg</a></span>
     <span>Сайтът не ползва бисквитки и не следи посетителите.</span>
@@ -123,6 +141,27 @@ footer .wrap{display:flex; flex-wrap:wrap; gap:8px 20px;}
 </footer>
 <script>
 (function(){ try{ fetch("https://zqpomakbhmqhdeuefdfj.supabase.co/rest/v1/rpc/log_site_view", {method:"POST", headers:{"Content-Type":"application/json", "apikey":"sb_publishable_TMj8xYglcKFXlCdEx-r0kg_wCxeJ45x", "Authorization":"Bearer sb_publishable_TMj8xYglcKFXlCdEx-r0kg_wCxeJ45x"}, body:JSON.stringify({p_page:"blog:smyana-na-sobstvenik-na-avtomobil-dokumenti"}), keepalive:true}).catch(function(){}); }catch(e){} })();
+</script>
+<script>
+// Анимирано лого: А) хедърът се „чертае“ веднъж на сесия (не при prefers-reduced-motion / без WebM-прозрачност); Б) футърът „паркира“, когато се стигне до края
+(function(){
+  var a = document.getElementById('brandA'), v = document.getElementById('logoDraw'), p = document.getElementById('logoPark');
+  var ok = v && v.canPlayType && v.canPlayType('video/webm; codecs="vp9"') && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var seen = false; try { seen = sessionStorage.getItem('pb-logo-drawn') === '1'; } catch (e) {}
+  if (ok && !seen) {
+    try { sessionStorage.setItem('pb-logo-drawn', '1'); } catch (e) {}
+    a.classList.add('anim');
+    var done = function(){ a.classList.add('done'); };
+    v.addEventListener('ended', done); v.addEventListener('error', done);
+    setTimeout(done, 4500);
+    v.src = '../../video/logo-chertane.webm';
+    v.play().catch(done);
+  }
+  if (ok && p && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) { p.classList.add('on'); p.src = '../../video/logo-parkirane.webm'; p.play().catch(function(){}); io.disconnect(); } }); }, { threshold: 0.6 });
+    io.observe(p);
+  }
+})();
 </script>
 </body>
 </html>
