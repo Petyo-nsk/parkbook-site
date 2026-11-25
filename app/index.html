@@ -30,6 +30,7 @@
   a.btn{ display:block; margin:10px 0; padding:14px 18px; border-radius:14px; background:var(--neon); color:#0d0f12; font-weight:800; text-decoration:none; font-size:17px; }
   .soon{ display:block; margin:10px 0; padding:14px 18px; border-radius:14px; border:1px solid #2a2f37; color:var(--muted); font-weight:700; }
   img.logo{ width:84px; height:84px; border-radius:20px; }
+[hidden]{display:none!important}
 .code{margin-top:14px;font-size:15px}.code b{font-size:22px;letter-spacing:2px}.code small{opacity:.75}
 </style>
 </head>
@@ -39,8 +40,7 @@
   <h1>Моят автомобил<i>.</i></h1>
   <p>Сроковете на колата ти на едно място — ГО, винетка, преглед, каско.</p>
   <a class="btn" id="play" href="#">Изтегли от Google Play</a>
-  <a class="btn" id="ios" href="#" hidden>Изтегли от App Store</a>
-  <span class="soon" id="iosSoon">iPhone — съвсем скоро</span>
+  <a class="btn" id="ios" href="#">Изтегли от App Store</a>
   <p class="code" id="codeBox" hidden>Твоят промо код: <b id="codeTxt"></b><br><small id="codeHint"></small></p>
 </div>
 <script>
@@ -60,7 +60,6 @@ if(CODE){
 }
 document.getElementById('play').href = PLAY;
 document.getElementById('ios').href = IOS;
-if(IOS_LIVE){ document.getElementById('ios').hidden = false; document.getElementById('iosSoon').hidden = true; }
 try{ fetch("https://zqpomakbhmqhdeuefdfj.supabase.co/rest/v1/rpc/log_site_view", {method:"POST", keepalive:true,
   headers:{"Content-Type":"application/json", "apikey":"sb_publishable_TMj8xYglcKFXlCdEx-r0kg_wCxeJ45x", "Authorization":"Bearer sb_publishable_TMj8xYglcKFXlCdEx-r0kg_wCxeJ45x"},
   body:JSON.stringify({p_page: CODE ? 'code:' + CODE : (P ? 'qr:' + P : (CAMP ? 'ad:' + CAMP : 'app'))})}).catch(function(){}); }catch(e){}
