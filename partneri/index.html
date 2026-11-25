@@ -219,10 +219,10 @@ footer a{color:var(--muted);}
       <label><span lang="bg">Фирма / обект *</span><span lang="en">Company *</span><input id="company" maxlength="120" autocomplete="organization" required></label>
       <label><span lang="bg">Лице за контакт *</span><span lang="en">Contact person *</span><input id="person" maxlength="80" autocomplete="name" required></label>
       <label><span lang="bg">Телефон *</span><span lang="en">Phone *</span><input id="phone" type="tel" maxlength="20" autocomplete="tel" required></label>
-      <label><span lang="bg">Имейл</span><span lang="en">Email</span><input id="email" type="email" maxlength="120" autocomplete="email"></label>
-      <label><span lang="bg">Град</span><span lang="en">City</span><input id="city" maxlength="40" list="cities"></label>
-      <label><span lang="bg">Услуга</span><span lang="en">Service</span>
-        <select id="service">
+      <label><span lang="bg">Имейл *</span><span lang="en">Email *</span><input id="email" type="email" maxlength="120" autocomplete="email" required></label>
+      <label><span lang="bg">Град *</span><span lang="en">City *</span><input id="city" maxlength="40" list="cities" required></label>
+      <label><span lang="bg">Услуга *</span><span lang="en">Service *</span>
+        <select id="service" required>
           <option value="">—</option>
           <option value="inspection">Преглед с вземане от адрес / Inspection with pick-up</option>
           <option value="service">Сервиз / Garage</option>
@@ -237,8 +237,9 @@ footer a{color:var(--muted);}
           <option value="other">Друго / Other</option>
         </select>
       </label>
-      <label class="full"><span lang="bg">Съобщение (по желание)</span><span lang="en">Message (optional)</span><textarea id="message" maxlength="1000"></textarea></label>
-      <label class="hp" aria-hidden="true">Website<input id="website" tabindex="-1" autocomplete="off"></label>
+      <label class="full"><span lang="bg">Съобщение (по желание)</span><span lang="en">Message (optional)</span><textarea id="message" maxlength="2000"></textarea></label>
+      <label class="hp" aria-hidden="true">Website<input id="website" name="website" tabindex="-1" autocomplete="off"></label>
+      <div class="full" id="captcha"></div>
       <label class="agree full"><input type="checkbox" id="agree"> <span lang="bg">Съгласен съм PARKBOOK да ползва тези данни, за да се свърже с мен относно партньорство.</span><span lang="en">I agree that PARKBOOK may use these details to contact me about a partnership.</span></label>
       <div class="full"><button class="btn" type="submit" id="send"><span lang="bg">Изпрати заявката</span><span lang="en">Send</span></button> <span class="msg" id="msg" role="status"></span></div>
     </form>
@@ -247,8 +248,8 @@ footer a{color:var(--muted);}
       <p lang="bg" style="margin:0;">Получихме заявката ви и ще ви се обадим до 2 работни дни. Ако бързате — пишете на <a href="mailto:contact@parkbook.bg">contact@parkbook.bg</a> или в <a href="https://wa.me/359894900690" target="_blank" rel="noopener">WhatsApp</a> / <a href="viber://chat?number=%2B359894900690">Viber</a> на 0894 900 690.</p>
       <p lang="en" style="margin:0;">We received your request and will call you within 2 working days. In a hurry? Write to <a href="mailto:contact@parkbook.bg">contact@parkbook.bg</a> or on <a href="https://wa.me/359894900690" target="_blank" rel="noopener">WhatsApp</a> / <a href="viber://chat?number=%2B359894900690">Viber</a> at +359894900690.</p>
     </div>
-    <p class="note" lang="bg">Данните от формата се пазят на сървър в ЕС само за връзка с вас и се изтриват след 12 месеца, ако не станем партньори. За изтриване по-рано — <a href="mailto:support@parkbook.bg">support@parkbook.bg</a>. Администратор: „Паркбоок“ ЕООД, ЕИК 208335426, гр. Бургас.</p>
-    <p class="note" lang="en">Form data is stored on a server in the EU only to contact you and is deleted after 12 months if we don't become partners. To delete it sooner — <a href="mailto:support@parkbook.bg">support@parkbook.bg</a>. Controller: Parkbook Ltd., UIC 208335426, Burgas.</p>
+    <p class="note" lang="bg">Данните от формата се пазят на сървър в ЕС само за връзка с вас и се изтриват след 12 месеца, ако не станем партньори. За защита от злоупотреби записваме и IP адреса, от който е изпратена заявката, и го пазим до 30 дни. За изтриване по-рано — <a href="mailto:support@parkbook.bg">support@parkbook.bg</a>. Администратор: „Паркбоок“ ЕООД, ЕИК 208335426, гр. Бургас.</p>
+    <p class="note" lang="en">Form data is stored on a server in the EU only to contact you and is deleted after 12 months if we don't become partners. To prevent abuse we also record the IP address the request came from and keep it for up to 30 days. To delete it sooner — <a href="mailto:support@parkbook.bg">support@parkbook.bg</a>. Controller: Parkbook Ltd., UIC 208335426, Burgas.</p>
   </div>
 </section>
 <datalist id="cities"><option>София</option><option>Пловдив</option><option>Варна</option><option>Бургас</option><option>Русе</option><option>Стара Загора</option><option>Плевен</option><option>Добрич</option><option>Сливен</option><option>Шумен</option><option>Перник</option><option>Хасково</option><option>Ямбол</option><option>Пазарджик</option><option>Благоевград</option><option>Велико Търново</option><option>Враца</option><option>Габрово</option><option>Асеновград</option><option>Видин</option><option>Казанлък</option><option>Кюстендил</option><option>Кърджали</option><option>Монтана</option><option>Димитровград</option><option>Ловеч</option><option>Силистра</option><option>Търговище</option><option>Дупница</option><option>Разград</option><option>Смолян</option><option>Цялата страна</option></datalist>
@@ -279,32 +280,50 @@ document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',
   try{ localStorage.setItem('car-tracker-lang-v1', b.dataset.l); }catch(e){}
 }));
 
-// Заявката отива в Supabase (функция submit_partner_application) — само публичният ключ, предназначен да е публичен
+// Заявката отива в Edge Function „partner-apply“ (25.11.2026): там е истинската проверка, лимитът, Turnstile и блокирането.
+// Тук са същите проверки само за удобство — с ясни съобщения. Ключът е публичният (предназначен да е публичен).
 const SB = 'https://zqpomakbhmqhdeuefdfj.supabase.co', KEY = 'sb_publishable_TMj8xYglcKFXlCdEx-r0kg_wCxeJ45x';
+const TURNSTILE_SITEKEY = '';   // Cloudflare Turnstile — публичният „site key“ (празно = без проверка)
 const T = (bg, en) => document.documentElement.dataset.l === 'en' ? en : bg;
+const OPENED = Date.now();
+if(TURNSTILE_SITEKEY){
+  const sc = document.createElement('script');
+  sc.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=pbTs&render=explicit'; sc.async = true; sc.defer = true;
+  window.pbTs = ()=>turnstile.render('#captcha', { sitekey: TURNSTILE_SITEKEY, appearance: 'interaction-only', language: 'bg' });
+  document.head.appendChild(sc);
+}
+const LETTERS = /[A-Za-zА-Яа-яЀ-ӿ]/g;
+const badName = x=>{ const c = x.replace(/\s/g, '').toLowerCase(); return !x || x.length > 100 || (x.match(LETTERS) || []).length < 2 || new Set(c).size < 2 || /(.)\1{3,}/u.test(c); };
+const okPhone = x=>{ const s = x.replace(/[\s\-().\/]/g, ''); const m = s.match(/^0([2-9]\d{8})$/) || s.match(/^\+359([2-9]\d{8})$/); return !!m && new Set(m[1]).size >= 4; };
 document.getElementById('f').addEventListener('submit', async e=>{
   e.preventDefault();
   const v = id => document.getElementById(id).value.trim();
   const msg = document.getElementById('msg'), btn = document.getElementById('send');
   msg.className = 'msg err';
-  if(v('website')){ return; }   // скрито поле — попълват го само ботове
-  if(v('company').length < 2 || v('person').length < 2 || v('phone').replace(/[^0-9]/g, '').length < 6){ msg.textContent = T('Попълнете фирма, име и телефон.', 'Please fill in company, name and phone.'); return; }
-  if(v('email') && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('email'))){ msg.textContent = T('Имейлът не изглежда верен.', 'The email looks wrong.'); return; }
-  if(!document.getElementById('agree').checked){ msg.textContent = T('Отбележете съгласието за връзка.', 'Please tick the consent box.'); return; }
+  const err = (bg, en)=>{ msg.textContent = T(bg, en); };
+  if(!v('company') || !v('person') || !v('phone') || !v('email') || !v('city') || !v('service')) return err('Попълнете всички полета със звездичка.', 'Please fill in all fields marked with *.');
+  if(badName(v('company'))) return err('Името на фирмата не изглежда истинско.', 'The company name does not look real.');
+  if(badName(v('person'))) return err('Името на лицето за контакт не изглежда истинско.', 'The contact name does not look real.');
+  if(!okPhone(v('phone'))) return err('Телефонът трябва да е български номер: 0888 123 456 или +359 888 123 456.', 'Please enter a Bulgarian phone number: 0888 123 456 or +359 888 123 456.');
+  if(!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v('email'))) return err('Имейлът не изглежда верен (пример: ime@firma.bg).', 'The email looks wrong.');
+  if((v('city').match(LETTERS) || []).length < 2) return err('Изберете или напишете град.', 'Please choose or type a city.');
+  if(!document.getElementById('agree').checked) return err('Отбележете съгласието за връзка.', 'Please tick the consent box.');
+  let token = '';
+  if(TURNSTILE_SITEKEY){ try{ token = turnstile.getResponse() || ''; }catch(x){} if(!token) return err('Изчакайте проверката „не съм робот“ и опитайте пак.', 'Please wait for the robot check and try again.'); }
   btn.disabled = true; msg.className = 'msg'; msg.textContent = T('Изпращане…', 'Sending…');
   try{
-    const res = await fetch(SB + '/rest/v1/rpc/submit_partner_application', {
+    const res = await fetch(SB + '/functions/v1/partner-apply', {
       method: 'POST',
       headers: { 'content-type': 'application/json', apikey: KEY, Authorization: 'Bearer ' + KEY },
-      body: JSON.stringify({ p_company: v('company'), p_person: v('person'), p_phone: v('phone'), p_email: v('email'),
-        p_city: v('city'), p_service: v('service'), p_message: v('message') })
+      body: JSON.stringify({ company: v('company'), person: v('person'), phone: v('phone'), email: v('email'), city: v('city'),
+        service: v('service'), message: v('message'), website: v('website'), elapsed_ms: Date.now() - OPENED, turnstile: token })
     });
-    const r = await res.json();
-    if(res.ok && r === 'ok'){ document.getElementById('f').style.display = 'none'; document.getElementById('done').style.display = 'block'; return; }
+    const r = await res.json().catch(()=>({}));
+    if(res.ok && r.ok){ document.getElementById('f').style.display = 'none'; document.getElementById('done').style.display = 'block'; return; }
     msg.className = 'msg err';
-    msg.textContent = r === 'busy' ? T('Много заявки в момента — опитайте след малко или пишете на contact@parkbook.bg.', 'Too many requests right now — try again shortly or write to contact@parkbook.bg.')
-      : T('Проверете данните и опитайте пак.', 'Please check the details and try again.');
-  }catch(err){ msg.className = 'msg err'; msg.textContent = T('Няма връзка. Опитайте пак или пишете на contact@parkbook.bg.', 'No connection. Try again or write to contact@parkbook.bg.'); }
+    msg.textContent = r.text || T('Проверете данните и опитайте пак.', 'Please check the details and try again.');
+    if(TURNSTILE_SITEKEY){ try{ turnstile.reset(); }catch(x){} }
+  }catch(x){ msg.className = 'msg err'; msg.textContent = T('Няма връзка. Опитайте пак или пишете на support@parkbook.bg.', 'No connection. Try again or write to support@parkbook.bg.'); }
   btn.disabled = false;
 });
 </script>
