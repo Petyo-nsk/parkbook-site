@@ -32,6 +32,10 @@
   img.logo{ width:84px; height:84px; border-radius:20px; }
 [hidden]{display:none!important}
 .code{margin-top:14px;font-size:15px}.code b{font-size:22px;letter-spacing:2px}.code small{opacity:.75}
+.codeCard{margin:4px 0 14px;padding:16px;border:2px solid var(--neon);border-radius:16px;background:#15181d}
+.codeCard .lbl{color:var(--muted);font-size:14px}.codeCard .big{font-size:30px;font-weight:900;letter-spacing:3px;color:var(--neon);margin:4px 0 10px;user-select:all}
+button.copy{width:100%;padding:12px;border-radius:12px;border:1px solid var(--neon);background:transparent;color:var(--neon);font-weight:800;font-size:16px;cursor:pointer}
+ol.steps{text-align:left;color:var(--ink);margin:14px 0 0;padding-left:22px;line-height:1.5;font-size:15px}ol.steps li{margin:6px 0}ol.steps b{color:var(--neon)}
 </style>
 </head>
 <body>
@@ -39,6 +43,16 @@
   <img class="logo" src="../img/icon-512.png" alt="">
   <h1>Моят автомобил<i>.</i></h1>
   <p>Сроковете на колата ти на едно място — ГО, винетка, преглед, каско.</p>
+  <div class="codeCard" id="codeCard" hidden>
+    <div class="lbl">🎁 Твоят промо код — Премиум подарък</div>
+    <div class="big" id="codeBig"></div>
+    <button class="copy" id="copyBtn" type="button">📋 Копирай кода</button>
+    <ol class="steps">
+      <li>Натисни <b>„Изтегли от Google Play“</b> (кодът се копира сам).</li>
+      <li>Отвори приложението и превърти надолу до <b>„Следи документите с Премиум“</b>.</li>
+      <li>В полето <b>„Промокод“</b> постави кода и натисни <b>„Приложи“</b>.</li>
+    </ol>
+  </div>
   <a class="btn" id="play" href="#">Изтегли от Google Play</a>
   <a class="btn" id="ios" href="#">Изтегли от App Store</a>
   <p class="code" id="codeBox" hidden>Твоят промо код: <b id="codeTxt"></b><br><small id="codeHint"></small></p>
@@ -56,7 +70,7 @@ var IOS = CODE ? 'https://apps.apple.com/redeem?ctx=offercodes&id=6827665344&cod
 if(CODE){
   document.getElementById('codeBox').hidden = false;
   document.getElementById('codeTxt').textContent = CODE;
-  document.getElementById('codeHint').textContent = 'Android: въведи го в приложението (Премиум → Промокод). iPhone: бутонът отваря App Store с кода.';
+  document.getElementById('codeHint').textContent = 'Android: в приложението, в полето „Промокод“ (под „Следи документите с Премиум“) → „Приложи“. iPhone: бутонът отваря App Store с кода.';
 }
 document.getElementById('play').href = PLAY;
 document.getElementById('ios').href = IOS;
@@ -65,7 +79,22 @@ try{ fetch("https://zqpomakbhmqhdeuefdfj.supabase.co/rest/v1/rpc/log_site_view",
   body:JSON.stringify({p_page: CODE ? 'code:' + CODE : (P ? 'qr:' + P : (CAMP ? 'ad:' + CAMP : 'app'))})}).catch(function(){}); }catch(e){}
 var ua = navigator.userAgent || '';
 var isIos = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
-if(/Android/i.test(ua)) location.replace(PLAY);
+var isAndroid = /Android/i.test(ua);
+// 27.11.2026: Android + код → НЕ прехвърляме веднага: показваме кода, „Копирай“ и стъпките (в Google Play кодът не се пренася)
+function copyCode(btn){
+  var done = function(){ if(btn){ btn.textContent = '✓ Кодът е копиран'; } };
+  try{ navigator.clipboard.writeText(CODE).then(done, function(){ selectCode(); }); }catch(e){ selectCode(); }
+}
+function selectCode(){ var r = document.createRange(); r.selectNodeContents(document.getElementById('codeBig')); var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r); }
+if(CODE && isAndroid){
+  document.getElementById('codeBox').hidden = true;
+  document.getElementById('codeCard').hidden = false;
+  document.getElementById('codeBig').textContent = CODE;
+  document.getElementById('ios').hidden = true;
+  document.getElementById('copyBtn').addEventListener('click', function(){ copyCode(this); });
+  document.getElementById('play').addEventListener('click', function(){ copyCode(document.getElementById('copyBtn')); });
+}
+else if(isAndroid) location.replace(PLAY);
 else if(isIos && IOS_LIVE) location.replace(IOS);
 </script>
 </body>
